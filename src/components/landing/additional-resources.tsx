@@ -66,7 +66,7 @@ export function AdditionalResources() {
                   src={item.imageSrc}
                   alt={item.title}
                   width={400}
-                  height={300}
+                  height={400}
                   className="w-full h-auto object-cover"
                   data-ai-hint={item.aiHint}
                 />
@@ -119,6 +119,32 @@ export function AdditionalResources() {
             <p className="text-muted-foreground max-w-4xl mx-auto">
                 Works in times of natural disasters, such as earthquakes, floods, and COVID-19 to provide relief and rehabilitation to the affected people.
             </p>
+        </div>
+
+        <div className="space-y-8 text-center">
+            <div className="flex justify-center">
+                <Image 
+                    src="/apply.jpeg"
+                    alt="Apply for Akhuwat Loan"
+                    width={800}
+                    height={514}
+                    className="w-full max-w-4xl h-auto object-contain"
+                    data-ai-hint="loan application information"
+                />
+            </div>
+            <p className="text-muted-foreground font-bold max-w-4xl mx-auto">
+                At Akhuwat, we believe in the power of informed lending. By leveraging data-driven insights, we ensure that every loan—whether for microfinance, education, or healthcare—drives meaningful change and creates lasting opportunities for growth.
+            </p>
+            <div className="flex justify-center">
+                <Image 
+                    src="/sch.jpeg"
+                    alt="Akhuwat Home Loan Scheme"
+                    width={800}
+                    height={770}
+                    className="w-full max-w-4xl h-auto object-contain"
+                    data-ai-hint="home loan advertisement"
+                />
+            </div>
         </div>
       </div>
       
