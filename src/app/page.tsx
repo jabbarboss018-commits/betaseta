@@ -1,8 +1,7 @@
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Hero } from '@/components/landing/hero';
-import { LoanProcess } from '@/components/landing/loan-process';
-import { SuccessStories } from '@/components/landing/success-stories';
+import { About } from '@/components/landing/about';
 
 export default function Home() {
   return (
@@ -10,8 +9,7 @@ export default function Home() {
       <Header />
       <main className="flex-grow">
         <Hero />
-        <LoanProcess />
-        <SuccessStories />
+        <About />
       </main>
       <Footer />
     </div>
