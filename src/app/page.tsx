@@ -8,6 +8,7 @@ import { Helpline } from '@/components/landing/helpline';
 import { AdditionalInfo } from '@/components/landing/additional-info';
 import { HowToApply } from '@/components/landing/how-to-apply';
 import { WhatsappHelpline } from '@/components/landing/whatsapp-helpline';
+import { AdditionalResources } from '@/components/landing/additional-resources';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <AdditionalInfo />
         <HowToApply />
         <WhatsappHelpline />
+        <AdditionalResources />
       </main>
       <Footer />
     </div>
