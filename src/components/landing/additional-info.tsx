@@ -146,9 +146,30 @@ export function AdditionalInfo() {
                 To develop and sustain a social system based on mutual support where each individual lives a life full of respect and dignity.
             </p>
         </div>
-        
+
+        {/* Contact and Counter Section */}
+        <div className="text-center">
+            <div className="flex justify-center mb-8">
+                <Image
+                    src="/dr.jpeg"
+                    alt="Dr. Muhammad Amjad Saqib"
+                    width={400}
+                    height={270}
+                    className="h-auto"
+                    data-ai-hint="portrait man suit"
+                />
+            </div>
+            <p className="text-2xl font-bold text-green-700">
+                Akhuwat Loan Contact Number 03478787625
+            </p>
+            <div className="text-6xl font-bold text-blue-600 my-4">
+                {count.toLocaleString()}
+            </div>
+            <p className="text-lg text-muted-foreground">Total Loan Approved Applications</p>
+        </div>
+
         {/* Progress Bar Section */}
-        <div ref={progressRef} id="progress-bar-section" className="text-center">
+        <div ref={progressRef} id="progress-bar-section">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/lab.jpeg"
@@ -159,14 +180,21 @@ export function AdditionalInfo() {
                     data-ai-hint="man lab science"
                 />
             </div>
-            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">Peoples Trust on Akhuwat Foundation Loan</h3>
-            <div className="my-8">
-                <Progress value={progress} className="w-full h-2.5" />
+            <div className="px-[15%]">
+                <p className="text-sm italic text-blue-600 mb-2 text-left">Peoples Trust on Akhuwat Foundation Loan</p>
+                <div className="relative w-full h-2.5">
+                    <Progress value={progress} className="w-full h-2.5" />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-bold text-white">
+                        {Math.round(progress)}%
+                    </span>
+                </div>
             </div>
-            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">Akhuwat Loan</h3>
-            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
-                Progressing from a historical and philosophical discourse towards a pragmatic model of poverty alleviation, Akhuwat was founded by Dr. Amjad Saqib in 2001. Prior to establishing Akhuwat, he served in the Civil Services of Pakistan in the District Management Group (DMG).
-            </p>
+            <div className="text-center mt-8">
+                <h3 className="text-2xl font-bold font-headline text-foreground mb-4">Akhuwat Loan</h3>
+                <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                    Progressing from a historical and philosophical discourse towards a pragmatic model of poverty alleviation, Akhuwat was founded by Dr. Amjad Saqib in 2001. Prior to establishing Akhuwat, he served in the Civil Services of Pakistan in the District Management Group (DMG).
+                </p>
+            </div>
         </div>
 
         {/* Need a Loan Section */}
@@ -214,29 +242,6 @@ export function AdditionalInfo() {
                 <li>House Loan</li>
             </ul>
         </div>
-
-
-        {/* Contact and Counter Section */}
-        <div className="text-center">
-            <div className="flex justify-center mb-8">
-                <Image
-                    src="/dr.jpeg"
-                    alt="Dr. Muhammad Amjad Saqib"
-                    width={400}
-                    height={270}
-                    className="h-auto"
-                    data-ai-hint="portrait man suit"
-                />
-            </div>
-            <p className="text-2xl font-bold text-green-700">
-                Akhuwat Loan Contact Number 03478787625
-            </p>
-            <div className="text-6xl font-bold text-blue-600 my-4">
-                {count.toLocaleString()}
-            </div>
-            <p className="text-lg text-muted-foreground">Total Loan Approved Applications</p>
-        </div>
-
       </div>
     </section>
   );
