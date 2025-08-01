@@ -1,15 +1,18 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/logo';
-import { Facebook, Twitter, Instagram, Youtube, Heart, Search } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Youtube, Heart, Search, Rss } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '../ui/input';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="bg-primary text-primary-foreground">
-        <div className="container flex h-14 max-w-screen-2xl items-center">
-          <Logo variant="light" />
-          <div className="ml-auto flex items-center gap-4">
+    <header className="sticky top-0 z-50 w-full bg-white shadow-md">
+      {/* Top bar */}
+      <div style={{ backgroundColor: '#006838' }} className="text-white">
+        <div className="container flex items-center justify-between w-full h-[120px] px-[5%]">
+          <Logo />
+          <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Link href="#" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
@@ -20,20 +23,23 @@ export function Header() {
               <Link href="#" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Youtube">
-                <Youtube className="h-5 w-5" />
+              <Link href="#" aria-label="Vimeo">
+                {/* Using RSS as a placeholder since Vimeo icon is not in lucide-react */}
+                <Rss className="h-5 w-5" />
               </Link>
             </div>
-            <Button variant="default" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button style={{ backgroundColor: '#006838', border: '1px solid white' }} className="rounded-full hover:bg-white hover:text-[#006838]">
               <Heart className="mr-2 h-4 w-4" />
               Donate
             </Button>
           </div>
         </div>
       </div>
-      <div className="container flex h-16 max-w-screen-2xl items-center">
+      
+      {/* Menu section */}
+      <div className="container flex h-[80px] w-full items-center justify-between px-[5%] border-b border-dotted border-b-2 border-green-900">
         <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium">
-          <Link href="/" className="transition-colors hover:text-primary text-accent">Home</Link>
+          <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">Home</Link>
           <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Check Status</Link>
           <Link href="/apply" className="transition-colors hover:text-primary text-foreground/60">How To Apply</Link>
           <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Our Impact</Link>
@@ -42,9 +48,21 @@ export function Header() {
           <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Donate</Link>
         </nav>
         <div className="ml-auto">
-          <Button variant="ghost" size="icon">
-            <Search className="h-5 w-5 text-foreground/60" />
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Search className="h-5 w-5 text-foreground/60" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <div className="p-4">
+                    <h4 className="text-lg font-medium">Search</h4>
+                    <p className="text-sm text-muted-foreground">What are you looking for?</p>
+                    <Input className="mt-4" placeholder="Search..." />
+                    <Button className="mt-4 w-full bg-primary text-primary-foreground">Search</Button>
+                </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </header>
