@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 export function AdditionalInfo() {
     const [count, setCount] = useState(0);
+    const [progress, setProgress] = useState(10);
 
     useEffect(() => {
         const end = 78998;
@@ -26,6 +28,26 @@ export function AdditionalInfo() {
         };
 
         requestAnimationFrame(animateCount);
+    }, []);
+
+     useEffect(() => {
+        const handleScroll = () => {
+            const progressBarSection = document.getElementById('progress-bar-section');
+            if (!progressBarSection) return;
+
+            const rect = progressBarSection.getBoundingClientRect();
+            const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            
+            // Check if the section is in view
+            if (rect.top <= viewHeight && rect.bottom >= 0) {
+                const scrollPercent = (viewHeight - rect.top) / (viewHeight + rect.height);
+                const newProgress = 10 + (scrollPercent * 89); // Animate from 10 to 99
+                setProgress(Math.min(Math.max(newProgress, 10), 99));
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
   return (
@@ -86,7 +108,7 @@ export function AdditionalInfo() {
 
         {/* Story Section */}
         <div className="text-center">
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/story.jpeg"
                     alt="The story of a relentless mother"
@@ -104,7 +126,7 @@ export function AdditionalInfo() {
         
         {/* Adaptable Section */}
         <div className="text-center">
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/student.jpeg"
                     alt="Winter clothing donation drive"
@@ -119,6 +141,74 @@ export function AdditionalInfo() {
                 To develop and sustain a social system based on mutual support where each individual lives a life full of respect and dignity.
             </p>
         </div>
+        
+        {/* Progress Bar Section */}
+        <div id="progress-bar-section" className="text-center">
+            <div className="flex justify-center mb-8 px-[15%]">
+                <Image
+                    src="/lab.jpeg"
+                    alt="Man working in a lab"
+                    width={1200}
+                    height={730}
+                    className="w-full h-auto object-contain"
+                    data-ai-hint="man lab science"
+                />
+            </div>
+            <div className="my-8">
+                <Progress value={progress} className="w-full h-2.5" />
+            </div>
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">Akhuwat Loan</h3>
+            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                Progressing from a historical and philosophical discourse towards a pragmatic model of poverty alleviation, Akhuwat was founded by Dr. Amjad Saqib in 2001. Prior to establishing Akhuwat, he served in the Civil Services of Pakistan in the District Management Group (DMG).
+            </p>
+        </div>
+
+        {/* Need a Loan Section */}
+        <div className="text-center">
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">While serving as the General Manager</h3>
+            <div className="flex justify-center mb-8 px-[15%]">
+                <Image
+                    src="/need.jpeg"
+                    alt="Need a loan for a house"
+                    width={1200}
+                    height={650}
+                    className="w-full h-auto object-contain"
+                    data-ai-hint="house loan advertisement"
+                />
+            </div>
+            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                While serving as the General Manager of the Punjab Rural Support Program (PRSP) he had witnessed the devastating impact of poverty and was committed to dedicate the rest of his life to alleviate the suffering of the poor. He was took his friends to a visit to a village, to study the impact of the PRSP. Dr. Kambar Shame and he had a conversation with a local woman, inquiring what has been took from the PRSP.
+            </p>
+        </div>
+        
+        {/* Dr. Saqib Section */}
+        <div className="text-center">
+            <div className="flex justify-center mb-8 px-[15%]">
+                <Image
+                    src="/saqib.jpeg"
+                    alt="Dr. Muhammad Amjad Saqib"
+                    width={1200}
+                    height={730}
+                    className="w-full h-auto object-contain"
+                    data-ai-hint="portrait man green background"
+                />
+            </div>
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-2">How to Apply for an Akhuwat Loan</h3>
+            <h4 className="text-xl font-semibold text-primary mb-4">Types of Loans Offered:</h4>
+            <ul className="list-disc list-inside text-lg text-muted-foreground max-w-md mx-auto text-left space-y-1">
+                <li>Business Loans</li>
+                <li>Education Loans</li>
+                <li>Wedding Loans</li>
+                <li>Health Loans</li>
+                <li>Emergency Loans</li>
+                <li>Apna Ghar Apna Chhat</li>
+                <li>Personal Loan</li>
+                <li>Car Loan</li>
+                <li>Student Loan</li>
+                <li>House Loan</li>
+            </ul>
+        </div>
+
 
         {/* Contact and Counter Section */}
         <div className="text-center">
