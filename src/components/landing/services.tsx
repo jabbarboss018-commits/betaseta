@@ -27,9 +27,9 @@ export function Services() {
     <section className="py-20 px-[5%]">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold font-headline text-foreground">Our Services</h2>
+          <h2 className="text-6xl font-bold font-headline text-foreground">Our Services</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {servicesData.map((service, index) => (
             <Card key={index} className="border-none shadow-none bg-transparent flex flex-col">
               <div className="overflow-hidden rounded-lg mb-6">
