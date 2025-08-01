@@ -120,8 +120,23 @@ export function AdditionalResources() {
                 Works in times of natural disasters, such as earthquakes, floods, and COVID-19 to provide relief and rehabilitation to the affected people.
             </p>
         </div>
+      </div>
+      
+        {/* Green Section */}
+        <div className="mt-16 py-12 bg-green-200/50">
+            <div className="container mx-auto px-[15%] space-y-8 text-center">
+                {loanInfoData.map((loan, index) => (
+                    <div key={index}>
+                        <h3 className="text-xl font-bold">{loan.title}</h3>
+                        <p className="font-semibold text-lg">Maximum Amount: {loan.amount}</p>
+                        <p className="text-muted-foreground max-w-2xl mx-auto text-base">{loan.description}</p>
+                    </div>
+                ))}
+                 <p className="text-center font-bold tracking-widest mt-8">PIERRE OMIDYAR</p>
+            </div>
+        </div>
 
-        <div className="space-y-8 text-center">
+        <div className="container mx-auto px-[15%] space-y-8 text-center pt-16">
             <div className="flex justify-center">
                 <Image 
                     src="/apply.jpeg"
@@ -146,22 +161,6 @@ export function AdditionalResources() {
                 />
             </div>
         </div>
-      </div>
-      
-        {/* Green Section */}
-        <div className="mt-16 py-12 bg-green-200/50">
-            <div className="container mx-auto px-[15%] space-y-6 text-center">
-                {loanInfoData.map((loan, index) => (
-                    <div key={index}>
-                        <h3 className="text-xl font-bold">{loan.title}</h3>
-                        <p className="font-semibold">Maximum Amount: {loan.amount}</p>
-                        <p className="text-muted-foreground max-w-2xl mx-auto">{loan.description}</p>
-                    </div>
-                ))}
-                 <p className="text-center font-bold tracking-widest mt-8">PIERRE OMIDYAR</p>
-            </div>
-        </div>
-
     </section>
   );
 }
