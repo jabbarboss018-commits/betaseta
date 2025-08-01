@@ -3,6 +3,8 @@ import { Footer } from '@/components/layout/footer';
 import { Hero } from '@/components/landing/hero';
 import { About } from '@/components/landing/about';
 import { VideoSection } from '@/components/landing/video-section';
+import { Services } from '@/components/landing/services';
+import { Helpline } from '@/components/landing/helpline';
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
         <Hero />
         <About />
         <VideoSection />
+        <Services />
+        <Helpline />
       </main>
       <Footer />
     </div>
