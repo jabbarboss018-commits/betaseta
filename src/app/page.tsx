@@ -5,6 +5,7 @@ import { About } from '@/components/landing/about';
 import { VideoSection } from '@/components/landing/video-section';
 import { Services } from '@/components/landing/services';
 import { Helpline } from '@/components/landing/helpline';
+import { AdditionalInfo } from '@/components/landing/additional-info';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <VideoSection />
         <Services />
         <Helpline />
+        <AdditionalInfo />
       </main>
       <Footer />
     </div>

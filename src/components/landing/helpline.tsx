@@ -11,8 +11,8 @@ export function Helpline() {
             <Image
                 src="/help.jpeg"
                 alt="Akhuwat College for Women"
-                width={670}
-                height={400}
+                width={686}
+                height={386}
                 className="rounded-lg shadow-lg"
                 data-ai-hint="female students education"
             />

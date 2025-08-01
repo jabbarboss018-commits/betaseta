@@ -3,20 +3,20 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const servicesData = [
   {
-    title: "Akhuwat Clothes Bank (ACB)",
-    description: "Collects gently used clothing and household items and distributes them among those in need with respect and dignity.",
+    title: "Akhuwat Business Loan",
+    description: "Applying for a business loan with Akhuwat is simple and can be done entirely online from the comfort of your office. Akhuwat’s business loans are designed to meet short-term financial needs, with quick approvals typically granted within hours. The application process requires minimal documentation, ensuring a smooth and hassle-free experience, allowing you to focus on your business without delays.",
     imageSrc: "/ses.jpeg",
     aiHint: "charity clothes donation"
   },
   {
     title: "Akhuwat Home Loan",
-    description: "The Akhuwat Foundation in Pakistan offers home loans for purchasing, building, or renovating residential properties. If you require fast financial assistance, the Akhuwat Home Loan provides a streamlined application process, ensuring you receive the funds you need without any delays.",
+    description: "The Akhuwat Foundation in Pakistan offers home loans for purchasing, building, or renovating residential properties. If you require fast financial assistance, the Akhuwat Home Loan provides a streamlined application process, ensuring you receive the funds you need without any delays. This service is perfect for individuals seeking urgent financial support in Pakistan, allowing you to secure the necessary funds quickly and efficiently for your housing needs.",
     imageSrc: "/ses1.jpeg",
     aiHint: "happy family home"
   },
   {
     title: "Akhuwat Personal Loan",
-    description: "The Akhuwat Foundation provides personal loans of up to Rs. 2.5 million, with the loan amount determined by factors such as your income, debt-to-income ratio, credit score, and employment status. To qualify, you must be between the ages of 24 and 60.",
+    description: "The Akhuwat Foundation provides personal loans of up to Rs. 2.5 million, with the loan amount determined by factors such as your income, debt-to-income ratio, credit score, and employment status. To qualify, you must be between the ages of 24 and 60. You can easily track the status of your loan application through the Akhuwat Foundation’s website, providing you with real-time updates and transparency throughout the process.",
     imageSrc: "/ses2.jpeg",
     aiHint: "community meeting"
   },
