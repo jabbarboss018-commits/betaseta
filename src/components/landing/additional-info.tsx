@@ -93,24 +93,6 @@ export function AdditionalInfo() {
             </p>
         </div>
 
-        {/* How to Apply Section */}
-        <div className="text-center">
-            <div className="flex justify-center mb-8 px-[15%]">
-                <Image
-                    src="/loan.jpeg"
-                    alt="How to apply for loan"
-                    width={1200}
-                    height={485}
-                    className="w-full h-auto object-contain"
-                    data-ai-hint="business meeting agreement"
-                />
-            </div>
-            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">How to Apply for Loan?</h3>
-            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
-                Contact the Akhuwat Head Office Contact Number, when you make a call to Akhuwat Helpline Number then officials will guide you or contact on whatsapp given button.
-            </p>
-        </div>
-
         {/* Story Section */}
         <div className="text-center">
             <div className="flex justify-center mb-8 px-[15%]">
@@ -167,6 +149,24 @@ export function AdditionalInfo() {
             </div>
             <p className="text-lg text-muted-foreground">Total Loan Approved Applications</p>
         </div>
+        
+        {/* How to Apply Section */}
+        <div className="text-center">
+            <div className="flex justify-center mb-8 px-[15%]">
+                <Image
+                    src="/loan.jpeg"
+                    alt="How to apply for loan"
+                    width={1200}
+                    height={485}
+                    className="w-full h-auto object-contain"
+                    data-ai-hint="business meeting agreement"
+                />
+            </div>
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">How to Apply for Loan?</h3>
+            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                Contact the Akhuwat Head Office Contact Number, when you make a call to Akhuwat Helpline Number then officials will guide you or contact on whatsapp given button.
+            </p>
+        </div>
 
         {/* Progress Bar Section */}
         <div ref={progressRef} id="progress-bar-section">
@@ -182,8 +182,8 @@ export function AdditionalInfo() {
             </div>
             <div className="px-[15%]">
                 <p className="text-sm italic text-blue-600 mb-2 text-left">Peoples Trust on Akhuwat Foundation Loan</p>
-                <div className="relative w-full h-2.5">
-                    <Progress value={progress} className="w-full h-2.5" />
+                <div className="relative w-full h-[35px]">
+                    <Progress value={progress} className="w-full h-[35px]" />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-bold text-white">
                         {Math.round(progress)}%
                     </span>
@@ -216,7 +216,7 @@ export function AdditionalInfo() {
         </div>
         
         {/* Dr. Saqib Section */}
-        <div className="text-center">
+        <div className="text-left">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/saqib.jpeg"
@@ -229,7 +229,7 @@ export function AdditionalInfo() {
             </div>
             <h3 className="text-2xl font-bold font-headline text-foreground mb-2">How to Apply for an Akhuwat Loan</h3>
             <h4 className="text-xl font-semibold text-primary mb-4">Types of Loans Offered:</h4>
-            <ul className="list-disc list-inside text-lg text-muted-foreground max-w-md mx-auto text-left space-y-1">
+            <ul className="list-disc list-inside text-lg text-muted-foreground max-w-md mx-auto text-left space-y-1 ml-0">
                 <li>Business Loans</li>
                 <li>Education Loans</li>
                 <li>Wedding Loans</li>
