@@ -227,10 +227,11 @@ export function AdditionalInfo() {
                     data-ai-hint="portrait man green background"
                 />
             </div>
-            <h3 className="text-2xl font-bold font-headline text-foreground mb-2">How to Apply for an Akhuwat Loan</h3>
-            <h4 className="text-xl font-semibold text-primary mb-4">Types of Loans Offered:</h4>
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-2 px-[15%]">How to Apply for an Akhuwat Loan</h3>
+            <h4 className="text-xl font-semibold text-primary mb-4 px-[15%]">Types of Loans Offered:</h4>
+            <div className="px-[15%]">
             <ul className="list-disc list-inside text-lg text-muted-foreground max-w-md mx-auto text-left space-y-1 ml-0">
-                <li>Business Loans</li>
+                <li>Business Loans </li>
                 <li>Education Loans</li>
                 <li>Wedding Loans</li>
                 <li>Health Loans</li>
@@ -241,6 +242,7 @@ export function AdditionalInfo() {
                 <li>Student Loan</li>
                 <li>House Loan</li>
             </ul>
+            </div>
         </div>
       </div>
     </section>

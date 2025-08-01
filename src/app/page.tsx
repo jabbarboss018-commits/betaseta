@@ -6,6 +6,8 @@ import { VideoSection } from '@/components/landing/video-section';
 import { Services } from '@/components/landing/services';
 import { Helpline } from '@/components/landing/helpline';
 import { AdditionalInfo } from '@/components/landing/additional-info';
+import { HowToApply } from '@/components/landing/how-to-apply';
+import { WhatsappHelpline } from '@/components/landing/whatsapp-helpline';
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
         <Services />
         <Helpline />
         <AdditionalInfo />
+        <HowToApply />
+        <WhatsappHelpline />
       </main>
       <Footer />
     </div>
