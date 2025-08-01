@@ -24,7 +24,7 @@ export function Header() {
                 <Youtube className="h-5 w-5" />
               </Link>
             </div>
-            <Button variant="outline" size="sm" className="bg-accent text-accent-foreground border-accent-foreground hover:bg-accent/90">
+            <Button variant="default" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Heart className="mr-2 h-4 w-4" />
               Donate
             </Button>
@@ -32,17 +32,18 @@ export function Header() {
         </div>
       </div>
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <nav className="flex items-center gap-4 lg:gap-6 text-sm">
-          <Link href="/" className="transition-colors hover:text-foreground/80 font-medium">Home</Link>
-          <Link href="#" className="transition-colors hover:text-foreground/80 text-foreground/60">Check Status</Link>
-          <Link href="/apply" className="transition-colors hover:text-foreground/80 text-foreground/60">How To Apply</Link>
-          <Link href="#" className="transition-colors hover:text-foreground/80 text-foreground/60">Our Impact</Link>
-          <Link href="#" className="transition-colors hover:text-foreground/80 text-foreground/60">Contact And Help</Link>
-          <Link href="#" className="transition-colors hover:text-foreground/80 text-foreground/60">Privacy Policy</Link>
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium">
+          <Link href="/" className="transition-colors hover:text-primary text-accent">Home</Link>
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Check Status</Link>
+          <Link href="/apply" className="transition-colors hover:text-primary text-foreground/60">How To Apply</Link>
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Our Impact</Link>
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Contact And Help</Link>
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Privacy Policy</Link>
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">Donate</Link>
         </nav>
         <div className="ml-auto">
           <Button variant="ghost" size="icon">
-            <Search className="h-5 w-5" />
+            <Search className="h-5 w-5 text-foreground/60" />
           </Button>
         </div>
       </div>

@@ -6,23 +6,27 @@ import Link from 'next/link';
 
 export function Hero() {
   return (
-    <section className="relative bg-gray-800 text-white py-20 lg:py-32">
-       <Image
-        src="https://placehold.co/1920x1080.png"
-        alt="Abstract background with geometric shapes"
+    <section className="relative text-white py-20 lg:py-32 overflow-hidden">
+      <Image
+        src="/hero-bg.png"
+        alt="Akhuwat Foundation beneficiary"
         fill
-        className="absolute inset-0 z-0 object-cover opacity-20"
+        className="absolute inset-0 z-0 object-cover"
         priority
-        data-ai-hint="abstract purple background"
+        data-ai-hint="man portrait abstract"
       />
+      <div className="absolute inset-0 bg-black/50 z-0"></div>
       <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         <div className="text-center lg:text-left">
           <p className="font-semibold text-lg text-gray-300">Business Loan Service</p>
-          <h1 className="text-4xl md:text-6xl font-bold font-headline leading-tight mt-2">
-            APPLY TODAY AKHUWAT LOAN
+          <h1 className="text-4xl md:text-6xl font-bold font-headline leading-tight mt-2 text-white">
+            AKHUWAT LOAN
           </h1>
+          <h2 className="text-4xl md:text-6xl font-bold font-headline leading-tight mt-2 text-white">APPLY TODAY</h2>
+          <h2 className="text-4xl md:text-6xl font-bold font-headline leading-tight mt-2 text-white">AKHUWAT LOAN</h2>
+
           <p className="mt-4 text-lg text-gray-300 max-w-lg mx-auto lg:mx-0">
-            Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit.
+            Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit. 03478787625
           </p>
           <div className="mt-8 flex justify-center lg:justify-start">
              <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
@@ -33,9 +37,9 @@ export function Hero() {
         <div className="flex justify-center">
             <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white w-full max-w-md">
                 <CardContent className="p-6">
-                    <div className='bg-yellow-300 p-4 rounded-md text-center text-black'>
+                    <div className='bg-yellow-400 p-4 rounded-md text-center text-black'>
                         <h3 className='font-bold text-lg'>یجان صرف اخوت اون چیک کریں</h3>
-                        <p className='font-semibold'>اخوت لون کی آفیشل ویبسانت</p>
+                        <p className='font-semibold'>اخوت لون کی آفیشل ویبسائٹ</p>
                         <p className='font-bold mt-2'>http://akhuwatloan.pk</p>
                     </div>
                     <form className="mt-6 space-y-4">
