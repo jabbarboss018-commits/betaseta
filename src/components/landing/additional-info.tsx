@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Progress } from "@/components/ui/progress";
 
 export function AdditionalInfo() {
     const [count, setCount] = useState(0);
     const [progress, setProgress] = useState(10);
+    const progressRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const end = 78998;
@@ -30,24 +31,28 @@ export function AdditionalInfo() {
         requestAnimationFrame(animateCount);
     }, []);
 
-     useEffect(() => {
-        const handleScroll = () => {
-            const progressBarSection = document.getElementById('progress-bar-section');
-            if (!progressBarSection) return;
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    const timer = setTimeout(() => setProgress(99), 500);
+                    // Disconnect the observer once the animation is triggered
+                    observer.disconnect();
+                    return () => clearTimeout(timer);
+                }
+            },
+            { threshold: 0.5 }
+        );
 
-            const rect = progressBarSection.getBoundingClientRect();
-            const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-            
-            // Check if the section is in view
-            if (rect.top <= viewHeight && rect.bottom >= 0) {
-                const scrollPercent = (viewHeight - rect.top) / (viewHeight + rect.height);
-                const newProgress = 10 + (scrollPercent * 89); // Animate from 10 to 99
-                setProgress(Math.min(Math.max(newProgress, 10), 99));
+        if (progressRef.current) {
+            observer.observe(progressRef.current);
+        }
+
+        return () => {
+            if (progressRef.current) {
+                observer.unobserve(progressRef.current);
             }
         };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
   return (
@@ -143,7 +148,7 @@ export function AdditionalInfo() {
         </div>
         
         {/* Progress Bar Section */}
-        <div id="progress-bar-section" className="text-center">
+        <div ref={progressRef} id="progress-bar-section" className="text-center">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/lab.jpeg"
@@ -154,6 +159,7 @@ export function AdditionalInfo() {
                     data-ai-hint="man lab science"
                 />
             </div>
+            <h3 className="text-2xl font-bold font-headline text-foreground mb-4">Peoples Trust on Akhuwat Foundation Loan</h3>
             <div className="my-8">
                 <Progress value={progress} className="w-full h-2.5" />
             </div>
