@@ -35,10 +35,10 @@ export function Header() {
 
             {/* Donate Button */}
             <Button
-              className="min-w-[80px] h-[38px] bg-yellow-400 hover:bg-yellow-500 text-white font-normal rounded-md flex items-center justify-center gap-2"
+              className="min-w-[80px] h-[38px] bg-yellow-400 hover:bg-yellow-500 text-white font-normal rounded-md flex items-center justify-center gap-2 text-md "
             >
               <Heart className="h-4 w-4" />
-              Donate
+              DONATE
             </Button>
           </div>
         </div>
@@ -46,7 +46,7 @@ export function Header() {
 
       {/* Menu section */}
       <div className="container flex h-[80px] w-full items-center justify-between px-[5%] border-b border-dotted border-b-2 border-green-900">
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-md font-medium">
           <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">
             Home
           </Link>

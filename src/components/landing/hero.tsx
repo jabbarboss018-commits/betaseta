@@ -35,7 +35,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-col items-center lg:items-start space-y-4">
-              <Image src="/herosec.webp" alt="Informational banner" width={500} height={150} unoptimized data-ai-hint="banner advertisement" className="rounded-lg" />
+              <Image src="/herosec.webp" alt="Informational banner" width={600} height={150} unoptimized data-ai-hint="banner advertisement" className="rounded-lg" />
               <div className="relative w-full">
                 <Input
                   placeholder="1310112345678"

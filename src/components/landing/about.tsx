@@ -13,7 +13,7 @@ export function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="overflow-hidden rounded-lg">
                 <Image 
-                    src="https://placehold.co/600x400.png" 
+                    src="/sec.jpeg" 
                     alt="Volunteers in a boat during a flood relief operation" 
                     width={600} 
                     height={400} 
@@ -23,7 +23,7 @@ export function About() {
             </div>
             <div className="overflow-hidden rounded-lg">
                 <Image 
-                    src="https://placehold.co/600x400.png" 
+                    src="/sec1.jpeg" 
                     alt="A volunteer distributing aid to a crowd of people" 
                     width={600} 
                     height={400} 

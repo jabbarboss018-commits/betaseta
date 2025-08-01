@@ -9,8 +9,7 @@ export default function Home() {
       <Header />
       <main className="flex-grow">
         <Hero />
-        {/* The About section is temporarily removed to focus on the hero section styling as requested */}
-        {/* <About /> */}
+        <About />
       </main>
       <Footer />
     </div>
