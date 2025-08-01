@@ -9,7 +9,7 @@ export function Helpline() {
         </h2>
         <div className="flex justify-center mb-12">
             <Image
-                src="https://placehold.co/670x400.png"
+                src="/help.jpeg"
                 alt="Akhuwat College for Women"
                 width={670}
                 height={400}

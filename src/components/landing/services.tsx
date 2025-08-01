@@ -5,19 +5,19 @@ const servicesData = [
   {
     title: "Akhuwat Clothes Bank (ACB)",
     description: "Collects gently used clothing and household items and distributes them among those in need with respect and dignity.",
-    imageSrc: "https://placehold.co/600x400.png",
+    imageSrc: "/ses.jpeg",
     aiHint: "charity clothes donation"
   },
   {
     title: "Akhuwat Home Loan",
     description: "The Akhuwat Foundation in Pakistan offers home loans for purchasing, building, or renovating residential properties. If you require fast financial assistance, the Akhuwat Home Loan provides a streamlined application process, ensuring you receive the funds you need without any delays.",
-    imageSrc: "https://placehold.co/600x400.png",
+    imageSrc: "/ses1.jpeg",
     aiHint: "happy family home"
   },
   {
     title: "Akhuwat Personal Loan",
     description: "The Akhuwat Foundation provides personal loans of up to Rs. 2.5 million, with the loan amount determined by factors such as your income, debt-to-income ratio, credit score, and employment status. To qualify, you must be between the ages of 24 and 60.",
-    imageSrc: "https://placehold.co/600x400.png",
+    imageSrc: "/ses2.jpeg",
     aiHint: "community meeting"
   },
 ];
