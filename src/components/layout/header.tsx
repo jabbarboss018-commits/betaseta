@@ -1,17 +1,47 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/logo';
-import { Heart, Search } from 'lucide-react';
+import { Heart, Menu, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '../ui/input';
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+
+const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "#", label: "Check Status" },
+    { href: "/apply", label: "How To Apply" },
+    { href: "#", label: "Our Impact" },
+    { href: "#", label: "Contact And Help" },
+    { href: "#", label: "Privacy Policy" },
+];
 
 export function Header() {
   return (
     <header className="sticky top-0 w-full bg-white shadow-md z-50">
-      <div className="container mx-auto flex h-24 items-center justify-between px-6">
+      <div className="container mx-auto flex h-24 items-center justify-between px-4 sm:px-6">
         
-        {/* Logo with angled background */}
-        <div className="absolute left-0 top-0 h-full w-48 md:w-64">
+        {/* Mobile: Hamburger Menu */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <nav className="flex flex-col gap-6 p-6">
+                {navLinks.map(link => (
+                    <Link key={link.href} href={link.href} className="text-lg font-medium text-foreground/80 hover:text-primary">
+                        {link.label}
+                    </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        {/* Desktop: Angled Logo Background */}
+        <div className="hidden md:block absolute left-0 top-0 h-full w-64">
           <div 
             className="absolute left-0 top-0 h-full w-full animate-shimmer"
             style={{
@@ -23,29 +53,21 @@ export function Header() {
           </div>
         </div>
         
-        {/* Spacer for the logo area */}
-        <div className="w-48 md:w-64 flex-shrink-0"></div>
+        {/* Desktop: Spacer for the logo area */}
+        <div className="hidden md:block w-64 flex-shrink-0"></div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex flex-grow items-center justify-center gap-10 lg:gap-14 text-lg font-medium relative">
-          <Link href="/" className="transition-colors hover:text-primary text-primary font-bold text-xl">
-            Home
-          </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
-            Check Status
-          </Link>
-          <Link href="/apply" className="transition-colors hover:text-primary text-foreground/60 text-xl">
-            How To Apply
-          </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
-            Our Impact
-          </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
-            Contact And Help
-          </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
-            Privacy Policy
-          </Link>
+        {/* Mobile: Centered Logo */}
+        <div className="md:hidden flex-1 flex justify-center">
+             <Logo className="h-[40px] w-auto" />
+        </div>
+
+        {/* Desktop: Navigation */}
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-12 lg:gap-16 text-lg font-medium relative text-xl">
+          {navLinks.map((link, index) => (
+             <Link key={link.href} href={link.href} className={`transition-colors hover:text-primary text-foreground/60 ${index === 0 ? 'text-primary font-bold' : ''}`}>
+                {link.label}
+            </Link>
+          ))}
           {/* Yellow accent line */}
           <div className="absolute -bottom-9 h-1 w-full">
              <div className="h-full w-20 bg-yellow-400 mx-auto"></div>
@@ -53,12 +75,12 @@ export function Header() {
         </nav>
 
         {/* Right side actions */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-1 md:gap-4">
           {/* Search Dialog */}
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Search className="h-10 w-10 text-foreground/60" />
+                <Search className="h-7 w-7 md:h-10 md:w-10 text-foreground/60" />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -73,9 +95,10 @@ export function Header() {
 
           {/* Donate Button */}
           <Button
-            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-lg hover:from-green-600 hover:to-yellow-500 shadow-lg px-12 py-5 h-auto"
+            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-lg hover:from-green-600 hover:to-yellow-500 shadow-lg px-2 md:px-12 py-2 md:py-3 h-auto text-xs md:text-lg"
+            style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)' }}
           >
-            <Heart className="h-5 w-5" />
+            <Heart className="h-5 w-5 hidden md:block" />
             DONATE
           </Button>
         </div>
