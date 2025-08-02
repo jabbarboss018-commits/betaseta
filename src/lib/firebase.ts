@@ -11,8 +11,30 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
-const db = getFirestore(app);
+// Check if all required environment variables are set
+const isConfigValid =
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId &&
+  firebaseConfig.storageBucket &&
+  firebaseConfig.messagingSenderId &&
+  firebaseConfig.appId;
+
+let app;
+let auth;
+let db;
+
+if (isConfigValid) {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+    db = getFirestore(app);
+} else {
+    console.warn("Firebase config is incomplete. Firebase services will not be initialized.");
+    // Provide dummy objects to prevent app from crashing
+    app = {};
+    auth = {};
+    db = {};
+}
+
 
 export { app, auth, db };
