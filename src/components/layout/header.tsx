@@ -27,7 +27,7 @@ export function Header() {
         <div className="w-48 md:w-64 flex-shrink-0"></div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex flex-grow items-center justify-center gap-6 lg:gap-8 text-md font-medium relative">
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-8 lg:gap-10 text-lg font-medium relative">
           <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">
             Home
           </Link>
@@ -48,7 +48,7 @@ export function Header() {
           </Link>
           {/* Yellow accent line */}
           <div className="absolute -bottom-9 h-1 w-full">
-            <div className="h-full w-20 bg-yellow-400 mx-auto"></div>
+             <div className="h-full w-20 bg-yellow-400 mx-auto"></div>
           </div>
         </nav>
 
@@ -58,7 +58,7 @@ export function Header() {
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Search className="h-6 w-6 text-foreground/60" />
+                <Search className="h-8 w-8 text-foreground/60" />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -73,7 +73,7 @@ export function Header() {
 
           {/* Donate Button */}
           <Button
-            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500 shadow-lg px-6 py-3 h-auto"
+            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500 shadow-lg px-8 py-4 h-auto"
           >
             <Heart className="h-4 w-4" />
             DONATE
