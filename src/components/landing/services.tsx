@@ -35,14 +35,14 @@ export function Services() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service, index) => (
-            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white">
+            <Card key={index} className="drawing-border-card group flex flex-col rounded-lg shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white">
               <CardHeader className="p-0">
                 <Image
                   src={service.imageSrc}
                   alt={service.title}
                   width={600}
                   height={400}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover rounded-t-lg"
                   data-ai-hint={service.aiHint}
                 />
               </CardHeader>

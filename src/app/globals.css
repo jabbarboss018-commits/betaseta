@@ -99,4 +99,59 @@ body {
     background-size: 200% 100%;
     animation: shimmer 5s infinite linear;
   }
+
+  .drawing-border-card {
+    @apply relative;
+  }
+
+  .drawing-border-card::before,
+  .drawing-border-card::after,
+  .drawing-border-card > :first-child::before,
+  .drawing-border-card > :first-child::after {
+    @apply absolute content-[''] rounded-lg opacity-0 transition-opacity duration-500;
+    background-image: linear-gradient(to right, hsl(var(--primary) / 0.8), hsl(var(--accent) / 0.8));
+  }
+
+  .drawing-border-card:hover::before,
+  .drawing-border-card:hover::after,
+  .drawing-border-card:hover > :first-child::before,
+  .drawing-border-card:hover > :first-child::after {
+    @apply opacity-100;
+  }
+
+  /* Top border */
+  .drawing-border-card::before {
+    @apply top-0 left-0 h-[1px] w-0;
+    transition-delay: 0s;
+  }
+  .drawing-border-card:hover::before {
+    @apply w-full transition-all duration-200 ease-in-out;
+  }
+
+  /* Right border */
+  .drawing-border-card > :first-child::before {
+    @apply top-0 right-0 w-[1px] h-0;
+    transition-delay: 0.2s;
+  }
+  .drawing-border-card:hover > :first-child::before {
+    @apply h-full transition-all duration-200 ease-in-out;
+  }
+
+  /* Bottom border */
+  .drawing-border-card::after {
+    @apply bottom-0 right-0 h-[1px] w-0;
+    transition-delay: 0.4s;
+  }
+  .drawing-border-card:hover::after {
+    @apply w-full transition-all duration-200 ease-in-out;
+  }
+
+  /* Left border */
+  .drawing-border-card > :first-child::after {
+    @apply bottom-0 left-0 w-[1px] h-0;
+    transition-delay: 0.6s;
+  }
+  .drawing-border-card:hover > :first-child::after {
+    @apply h-full transition-all duration-200 ease-in-out;
+  }
 }
