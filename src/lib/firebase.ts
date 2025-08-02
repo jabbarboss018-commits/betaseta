@@ -20,8 +20,8 @@ try {
     auth = getAuth(app);
     db = getFirestore(app);
 } catch (e) {
-    console.error("Failed to initialize Firebase", e);
-    // Provide dummy objects to prevent app from crashing if config is invalid
+    console.error("Failed to initialize Firebase. Please check your environment variables.", e);
+    // Assign empty objects if initialization fails, to prevent app crashing.
     app = {} as FirebaseApp;
     auth = {} as Auth;
     db = {} as Firestore;
@@ -29,7 +29,6 @@ try {
 
 // Function to add a new loan application
 export const addLoanApplication = async (applicationData: any) => {
-    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
     const dataWithTimestamp = {
         ...applicationData,
         submittedAt: serverTimestamp()
@@ -39,23 +38,18 @@ export const addLoanApplication = async (applicationData: any) => {
 
 // Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
-    if (!db || typeof (db as any).doc !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await updateDoc(applicationRef, { status, adminNotes });
 };
 
 // Function to delete a loan application
 export const deleteLoanApplication = async (id: string) => {
-     if (!db || typeof (db as any).doc !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await deleteDoc(applicationRef);
 };
 
 // Function to get a loan application by CNIC
 export const getLoanApplicationByCnic = async (cnic: string) => {
-    if (!db || typeof (db as any).collection !== 'function') {
-        throw new Error("Firestore is not initialized.");
-    }
     const q = query(collection(db, "loanApplication"), where("cnic", "==", cnic));
     const querySnapshot = await getDocs(q);
 
@@ -63,9 +57,9 @@ export const getLoanApplicationByCnic = async (cnic: string) => {
         const docData = querySnapshot.docs[0].data();
         // Handle timestamp conversion safely
         let submittedAt = new Date().toISOString();
-        if (docData.submittedAt && typeof docData.submittedAt.toDate === 'function') {
+        if (docData.submittedAt instanceof Timestamp) {
            submittedAt = docData.submittedAt.toDate().toISOString();
-        } else if (docData.submittedAt && docData.submittedAt.seconds) {
+        } else if (docData.submittedAt && typeof docData.submittedAt.seconds === 'number') {
             submittedAt = new Date(docData.submittedAt.seconds * 1000).toISOString();
         }
 
