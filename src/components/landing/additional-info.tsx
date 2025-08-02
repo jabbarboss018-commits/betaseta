@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -56,45 +57,42 @@ export function AdditionalInfo() {
     }, []);
 
   return (
-    <section className="py-20 px-[9%] bg-white">
-      <div className="container mx-auto space-y-12">
+    <section className="py-20 bg-white">
+      <div className="space-y-12">
         
-        {/* First Image and Text Block */}
-        <div className="text-center">
-            <div className="flex justify-center mb-8 px-[15%]">
-                <Image
-                    src="/akhuwat1.jpeg"
-                    alt="Akhuwat Annual Newsletter"
-                    width={1200}
-                    height={580}
-                    className="w-full h-auto object-contain"
-                    data-ai-hint="newsletter cover"
-                />
+        {/* Full-width stitched images and text */}
+        <div className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="w-full h-auto">
+                     <Image
+                        src="/akhuwat1.jpeg"
+                        alt="Akhuwat Annual Newsletter"
+                        width={1200}
+                        height={580}
+                        className="w-full h-full object-cover"
+                        data-ai-hint="newsletter cover"
+                    />
+                </div>
+                 <div className="w-full h-auto">
+                    <Image
+                        src="/girl.jpeg"
+                        alt="Akhuwat College for Women, Chakwal"
+                        width={1200}
+                        height={1148}
+                        className="w-full h-full object-cover"
+                        data-ai-hint="college students"
+                    />
+                </div>
             </div>
-            <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
-                Akhuwat Loan Scheme 2025 program is a key part of the foundation's work to create positive change in Pakistan's economy and society. This program offers interest-free loans, which is rare in the microfinance industry worldwide. It aims to help people like small business owners, craftsmen, farmers, and women by giving them the money they need to achieve their goals and improve their lives.
-            </p>
-        </div>
-
-        {/* Second Image and Text Block */}
-        <div className="text-center">
-             <div className="flex justify-center mb-8 px-[15%]">
-                <Image
-                    src="/girl.jpeg"
-                    alt="Akhuwat College for Women, Chakwal"
-                    width={1200}
-                    height={1148}
-                    className="w-full h-auto object-contain"
-                    data-ai-hint="college students"
-                />
-            </div>
-             <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
-                The Akhuwat Loan is different because it has no interest and is easy to get. The foundation relies on trust and community involvement, working with local leaders and groups to give out loans. This model makes the loans more than just money transactions; they also build trust and support in the community, promoting a culture of giving back.
-            </p>
+             <div className="container mx-auto px-[9%] pt-8">
+                <p className="text-lg text-muted-foreground max-w-5xl mx-auto text-center">
+                    The Akhuwat Loan Scheme 2025 program is a key part of the foundation's work to create positive change in Pakistan's economy and society. This program offers interest-free loans, which is rare in the microfinance industry worldwide. It aims to help people like small business owners, craftsmen, farmers, and women by giving them the money they need to achieve their goals and improve their lives. The foundation relies on trust and community involvement, working with local leaders and groups to give out loans. This model makes the loans more than just money transactions; they also build trust and support in the community, promoting a culture of giving back.
+                </p>
+             </div>
         </div>
 
         {/* Story Section */}
-        <div className="text-center">
+        <div className="text-center container mx-auto px-[9%]">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/story.jpeg"
@@ -112,7 +110,7 @@ export function AdditionalInfo() {
         </div>
         
         {/* Adaptable Section */}
-        <div className="text-center">
+        <div className="text-center container mx-auto px-[9%]">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/student.jpeg"
@@ -130,7 +128,7 @@ export function AdditionalInfo() {
         </div>
 
         {/* Contact and Counter Section */}
-        <div className="text-center">
+        <div className="text-center container mx-auto px-[9%]">
             <div className="flex justify-center mb-8">
                 <Image
                     src="/dr.jpeg"
@@ -151,7 +149,7 @@ export function AdditionalInfo() {
         </div>
         
         {/* How to Apply Section */}
-        <div className="text-center">
+        <div className="text-center container mx-auto px-[9%]">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/loan.jpeg"
@@ -169,7 +167,7 @@ export function AdditionalInfo() {
         </div>
 
         {/* Progress Bar Section */}
-        <div ref={progressRef} id="progress-bar-section">
+        <div ref={progressRef} id="progress-bar-section" className="container mx-auto">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/lab.jpeg"
@@ -198,7 +196,7 @@ export function AdditionalInfo() {
         </div>
 
         {/* Need a Loan Section */}
-        <div className="text-center">
+        <div className="text-center container mx-auto px-[9%]">
             <h3 className="text-2xl font-bold font-headline text-foreground mb-4">While serving as the General Manager</h3>
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
@@ -216,7 +214,7 @@ export function AdditionalInfo() {
         </div>
         
         {/* Dr. Saqib Section */}
-        <div className="text-left">
+        <div className="text-left container mx-auto px-[9%]">
             <div className="flex justify-center mb-8 px-[15%]">
                 <Image
                     src="/saqib.jpeg"
