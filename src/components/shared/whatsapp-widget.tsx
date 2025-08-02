@@ -15,40 +15,13 @@ const WhatsappIcon = () => (
 
 const teamMembers = [
     {
-        name: "Usman Ghani",
+        name: "Zeeshan ",
         title: "Customer Support",
-        avatar: "https://placehold.co/50x50.png",
-        phone: "923478787625",
+        avatar: "/profile.png",
+        phone: "+92 344 7622377",
         aiHint: "man portrait"
     },
-    {
-        name: "Ayesha Khan",
-        title: "Loan Specialist",
-        avatar: "https://placehold.co/50x50.png",
-        phone: "923478787626",
-        aiHint: "woman portrait"
-    },
-    {
-        name: "Ali Ahmed",
-        title: "Technical Support",
-        avatar: "https://placehold.co/50x50.png",
-        phone: "923478787627",
-        aiHint: "man smiling"
-    },
-    {
-        name: "Fatima Raza",
-        title: "Application Advisor",
-        avatar: "https://placehold.co/50x50.png",
-        phone: "923478787628",
-        aiHint: "woman professional"
-    },
-    {
-        name: "Bilal Hassan",
-        title: "Account Manager",
-        avatar: "https://placehold.co/50x50.png",
-        phone: "923478787629",
-        aiHint: "man in suit"
-    }
+    
 ];
 
 export function WhatsappWidget() {

@@ -31,7 +31,7 @@ export function Footer() {
           {/* Column 4: Contact Info */}
           <div className="text-sm">
             <h4 className="font-bold mb-2">CONTACT INFORMATION AKHUWAT</h4>
-            <p><span className="font-bold">Helpline Number</span> 03478787625</p>
+            <p><span className="font-bold">Helpline Number</span> +92 344 7622377</p>
             <p className="mt-2"><span className="font-bold">Punjab:</span> Akhuwat Address: Head Office: 19 Civic Center, Sector A2, Township, Lahore, Pakistan</p>
             <p className="mt-2"><span className="font-bold">Sindh:</span> Address: V5QR+XX7, Saudabad G Area Malir Colony Kala Board, Karachi, Karachi City, Sindh</p>
             <p className="mt-2"><span className="font-bold">KPK:</span> Address: 2H6H+VX7, Hashtnagri Peshawar, Khyber Pakhtunkhwa</p>

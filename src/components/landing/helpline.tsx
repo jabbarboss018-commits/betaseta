@@ -29,7 +29,7 @@ export function Helpline() {
               <div className="bg-primary text-primary-foreground p-4 rounded-md text-center">
                 <p className="text-lg font-semibold">Contact our Helpline</p>
                 <p className="text-2xl font-bold tracking-wider">
-                  0347-8787625
+                +92 344 7622377
                 </p>
               </div>
             </CardContent>
