@@ -12,7 +12,7 @@ const servicesData = [
     title: "Akhuwat Home Loan",
     description: "The Akhuwat Foundation in Pakistan offers home loans for purchasing, building, or renovating residential properties. If you require fast financial assistance, the Akhuwat Home Loan provides a streamlined application process, ensuring you receive the funds you need without any delays. This service is perfect for individuals seeking urgent financial support in Pakistan, allowing you to secure the necessary funds quickly and efficiently for your housing needs.",
     imageSrc: "/ses1.jpeg",
-    aiHint: "happy family home"
+aiHint: "happy family home"
   },
   {
     title: "Akhuwat Personal Loan",
@@ -35,18 +35,18 @@ export function Services() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service, index) => (
-            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white">
               <CardHeader className="p-0">
                 <Image
                   src={service.imageSrc}
                   alt={service.title}
                   width={600}
                   height={400}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-auto object-cover"
                   data-ai-hint={service.aiHint}
                 />
               </CardHeader>
-              <CardContent className="flex flex-col flex-grow p-6 bg-white">
+              <CardContent className="flex flex-col flex-grow p-6">
                 <h3 className="text-xl font-bold font-headline text-foreground mb-4">{service.title}</h3>
                 <p className="text-muted-foreground flex-grow">
                   {service.description}
