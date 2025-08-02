@@ -1,6 +1,6 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore, doc, updateDoc, deleteDoc, collection, addDoc, serverTimestamp, query, where, getDocs } from "firebase/firestore";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
+import { getAuth, Auth } from "firebase/auth";
+import { getFirestore, doc, updateDoc, deleteDoc, collection, addDoc, serverTimestamp, query, where, getDocs, Timestamp, Firestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,38 +11,21 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Check if all required environment variables are set
-const isConfigValid =
-  firebaseConfig.apiKey &&
-  firebaseConfig.authDomain &&
-  firebaseConfig.projectId &&
-  firebaseConfig.storageBucket &&
-  firebaseConfig.messagingSenderId &&
-  firebaseConfig.appId;
-
-let app;
-let auth;
-let db;
+let app: FirebaseApp;
+let auth: Auth;
+let db: Firestore;
 
 try {
-    if (isConfigValid) {
-        app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-        auth = getAuth(app);
-        db = getFirestore(app);
-    } else {
-        console.warn("Firebase config is incomplete. Firebase services will not be initialized.");
-        // Provide dummy objects to prevent app from crashing if config is invalid
-        app = {};
-        auth = {};
-        db = {};
-    }
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+    db = getFirestore(app);
 } catch (e) {
     console.error("Failed to initialize Firebase", e);
-    app = {};
-    auth = {};
-    db = {};
+    // Provide dummy objects to prevent app from crashing if config is invalid
+    app = {} as FirebaseApp;
+    auth = {} as Auth;
+    db = {} as Firestore;
 }
-
 
 // Function to add a new loan application
 export const addLoanApplication = async (applicationData: any) => {
@@ -54,17 +37,16 @@ export const addLoanApplication = async (applicationData: any) => {
     await addDoc(collection(db, "loanApplication"), dataWithTimestamp);
 };
 
-
 // Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
-    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
+    if (!db || typeof (db as any).doc !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await updateDoc(applicationRef, { status, adminNotes });
 };
 
 // Function to delete a loan application
 export const deleteLoanApplication = async (id: string) => {
-    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
+     if (!db || typeof (db as any).doc !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await deleteDoc(applicationRef);
 };
@@ -76,9 +58,17 @@ export const getLoanApplicationByCnic = async (cnic: string) => {
     }
     const q = query(collection(db, "loanApplication"), where("cnic", "==", cnic));
     const querySnapshot = await getDocs(q);
+
     if (!querySnapshot.empty) {
         const docData = querySnapshot.docs[0].data();
-        const submittedAt = docData.submittedAt instanceof Timestamp ? docData.submittedAt.toDate().toISOString() : new Date().toISOString();
+        // Handle timestamp conversion safely
+        let submittedAt = new Date().toISOString();
+        if (docData.submittedAt && typeof docData.submittedAt.toDate === 'function') {
+           submittedAt = docData.submittedAt.toDate().toISOString();
+        } else if (docData.submittedAt && docData.submittedAt.seconds) {
+            submittedAt = new Date(docData.submittedAt.seconds * 1000).toISOString();
+        }
+
         return {
             id: querySnapshot.docs[0].id,
             ...docData,
@@ -87,6 +77,5 @@ export const getLoanApplicationByCnic = async (cnic: string) => {
     }
     return null;
 }
-
 
 export { app, auth, db };
