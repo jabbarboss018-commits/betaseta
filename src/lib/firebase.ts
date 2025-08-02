@@ -39,14 +39,14 @@ if (isConfigValid) {
 // Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
     if (!db) throw new Error("Firestore is not initialized.");
-    const applicationRef = doc(db, "loanApplications", id);
+    const applicationRef = doc(db, "loanApplication", id);
     await updateDoc(applicationRef, { status, adminNotes });
 };
 
 // Function to delete a loan application
 export const deleteLoanApplication = async (id: string) => {
     if (!db) throw new Error("Firestore is not initialized.");
-    const applicationRef = doc(db, "loanApplications", id);
+    const applicationRef = doc(db, "loanApplication", id);
     await deleteDoc(applicationRef);
 };
 

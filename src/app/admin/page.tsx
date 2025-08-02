@@ -5,7 +5,7 @@ import { LoanApplication } from "@/components/admin/columns";
 
 async function getLoanApplications(): Promise<LoanApplication[]> {
   try {
-    const q = query(collection(db, "loanApplications"), orderBy("submittedAt", "desc"));
+    const q = query(collection(db, "loanApplication"), orderBy("submittedAt", "desc"));
     const querySnapshot = await getDocs(q);
     const applications = querySnapshot.docs.map(doc => {
       const data = doc.data();
