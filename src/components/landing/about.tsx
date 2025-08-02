@@ -2,35 +2,56 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <section className="py-20">
-      <div className="container max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-headline text-foreground">About Akhuwat Foundation</h2>
-            <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
-                Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) designed to uplift those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit.
+    <section className="py-20 bg-secondary/30 overflow-hidden">
+      <div className="container mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Side: Content */}
+          <div className="text-left">
+            <p className="font-semibold text-lg text-primary mb-2">
+                About Our Mission
             </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="overflow-hidden rounded-lg">
-                <Image 
-                    src="/sec.jpeg" 
-                    alt="Volunteers in a boat during a flood relief operation" 
-                    width={600} 
-                    height={400} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    data-ai-hint="volunteers flood relief" 
-                />
+            <h2 className="text-4xl md:text-5xl font-bold font-headline leading-tight text-foreground mb-6">
+                Ethical, Interest-Free Loans to Uplift Pakistan
+            </h2>
+            <p className="text-lg text-muted-foreground">
+                Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) designed to uplift those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit, helping create a sustainable social system based on mutual support where every individual can live a life of dignity.
+            </p>
+          </div>
+
+          {/* Right Side: Image Composition */}
+          <div className="relative min-h-[500px] hidden lg:flex items-center justify-center">
+            {/* Background Image */}
+            <Image 
+              src="/sec.jpeg" 
+              alt="Community gathering"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg opacity-50 blur-sm"
+              data-ai-hint="community gathering"
+            />
+            
+            {/* Floating Image */}
+            <div className="absolute top-8 left-8 w-3/4 h-[250px] z-10 rounded-lg overflow-hidden shadow-2xl border-4 border-white">
+              <Image 
+                  src="/sec1.jpeg" 
+                  alt="Aid distribution" 
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 hover:scale-105"
+                  data-ai-hint="aid distribution community" 
+              />
             </div>
-            <div className="overflow-hidden rounded-lg">
-                <Image 
-                    src="/sec1.jpeg" 
-                    alt="A volunteer distributing aid to a crowd of people" 
-                    width={600} 
-                    height={400} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    data-ai-hint="aid distribution community" 
-                />
-            </div>
+
+            {/* Particles */}
+            <div className="absolute top-1/4 -right-8 w-24 h-24 bg-primary/30 rounded-full animate-spin-slow filter blur-xl"></div>
+            <div className="absolute bottom-16 -left-12 w-32 h-32 bg-accent/30 rounded-full animate-spin-slow animation-delay-4000 filter blur-xl"></div>
+            <div className="absolute bottom-1/2 right-1/2 w-16 h-16 bg-primary/20 rounded-full animate-spin-slow animation-delay-2000 filter blur-lg"></div>
+            <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-accent/20 rounded-full animate-spin-slow filter blur-lg"></div>
+
+            {/* A subtle box to contain the floating image and give it a platform */}
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent to-black/10 rounded-lg"></div>
+          </div>
         </div>
       </div>
     </section>
