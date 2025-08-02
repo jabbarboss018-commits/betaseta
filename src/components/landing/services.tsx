@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const servicesData = [
   {
@@ -24,25 +24,29 @@ const servicesData = [
 
 export function Services() {
   return (
-    <section className="py-20 px-[5%]">
-      <div className="container mx-auto">
+    <section className="py-20 px-[5%] relative overflow-hidden bg-secondary/20">
+       <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="absolute top-1/4 -left-24 w-48 h-48 bg-primary/10 rounded-full animate-spin-slow filter blur-xl"></div>
+        <div className="absolute bottom-1/4 -right-24 w-48 h-48 bg-accent/10 rounded-full animate-spin-slow animation-delay-4000 filter blur-xl"></div>
+      </div>
+      <div className="container mx-auto relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-6xl font-bold font-headline text-foreground">Our Services</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service, index) => (
-            <Card key={index} className="border-none shadow-none bg-transparent flex flex-col">
-              <div className="overflow-hidden rounded-lg mb-6">
+            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <CardHeader className="p-0">
                 <Image
                   src={service.imageSrc}
                   alt={service.title}
                   width={600}
                   height={400}
-                  className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-48 object-cover"
                   data-ai-hint={service.aiHint}
                 />
-              </div>
-              <CardContent className="flex flex-col flex-grow p-0">
+              </CardHeader>
+              <CardContent className="flex flex-col flex-grow p-6 bg-white">
                 <h3 className="text-xl font-bold font-headline text-foreground mb-4">{service.title}</h3>
                 <p className="text-muted-foreground flex-grow">
                   {service.description}
