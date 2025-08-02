@@ -6,7 +6,7 @@ export default function ApplyPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="flex-grow py-12 lg:py-20">
+      <main className="flex-grow py-12 lg:py-20 flex items-center justify-center">
         <div className="container max-w-5xl text-center">
           <h1 className="text-3xl lg:text-4xl font-bold font-headline text-primary">How to Apply for an Akhuwat Loan Online</h1>
           <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">

@@ -44,6 +44,15 @@ const loanOptions = [
     { value: "5000000", label: "5,000,000 PKR", period: "60 Months", fee: 5600 },
 ];
 
+function fileToDataUri(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
 export function LoanApplicationForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +91,8 @@ export function LoanApplicationForm() {
     setIsLoading(true);
     try {
       const selfieFile = values.selfie[0];
-      const selfieUrl = await uploadSelfie(selfieFile);
+      const selfieDataUri = await fileToDataUri(selfieFile);
+      const selfieUrl = await uploadSelfie(selfieDataUri);
 
       const docRef = await addDoc(collection(db, "loanApplications"), {
         fullName: values.fullName,

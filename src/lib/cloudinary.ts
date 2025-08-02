@@ -19,16 +19,10 @@ if (
     });
 }
 
-export async function uploadSelfie(file: File) {
+export async function uploadSelfie(fileUri: string) {
     if (!process.env.CLOUDINARY_CLOUD_NAME) {
         throw new Error("Cloudinary is not configured.");
     }
-
-    const fileBuffer = await file.arrayBuffer();
-    const mime = file.type;
-    const encoding = 'base64';
-    const base64Data = Buffer.from(fileBuffer).toString('base64');
-    const fileUri = 'data:' + mime + ';' + encoding + ',' + base64Data;
 
     try {
         const result = await cloudinary.uploader.upload(fileUri, {
