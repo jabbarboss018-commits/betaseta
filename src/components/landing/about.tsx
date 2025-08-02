@@ -6,20 +6,7 @@ export function About() {
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* Left Side: Content */}
-          <div className="text-left">
-            <p className="font-semibold text-lg text-primary mb-2">
-                About Our Mission
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold font-headline leading-tight text-foreground mb-6">
-                Ethical, Interest-Free Loans to Uplift Pakistan
-            </h2>
-            <p className="text-lg text-muted-foreground">
-                Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) designed to uplift those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit, helping create a sustainable social system based on mutual support where every individual can live a life of dignity.
-            </p>
-          </div>
-
-          {/* Right Side: Image Composition */}
+          {/* Left Side: Image Composition */}
           <div className="relative min-h-[500px] hidden lg:flex items-center justify-center">
             {/* Background Image */}
             <Image 
@@ -27,12 +14,12 @@ export function About() {
               alt="Community gathering"
               layout="fill"
               objectFit="cover"
-              className="rounded-lg opacity-50 blur-sm"
+              className="rounded-lg opacity-50"
               data-ai-hint="community gathering"
             />
             
             {/* Floating Image */}
-            <div className="absolute top-8 left-8 w-3/4 h-[250px] z-10 rounded-lg overflow-hidden shadow-2xl border-4 border-white">
+            <div className="absolute top-8 left-8 w-[300px] h-[300px] z-10 rounded-lg overflow-hidden shadow-2xl border-4 border-white">
               <Image 
                   src="/sec1.jpeg" 
                   alt="Aid distribution" 
@@ -51,6 +38,19 @@ export function About() {
 
             {/* A subtle box to contain the floating image and give it a platform */}
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent to-black/10 rounded-lg"></div>
+          </div>
+
+           {/* Right Side: Content */}
+           <div className="text-left">
+            <p className="font-semibold text-lg text-primary mb-2">
+                About Our Mission
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold font-headline leading-tight text-foreground mb-6">
+                Ethical, Interest-Free Loans to Uplift Pakistan
+            </h2>
+            <p className="text-lg text-muted-foreground">
+                Akhuwat Foundation stands out as a unique loan provider in Pakistan, offering ethical, interest-free loans (Qarz-e-Hasna) designed to uplift those in need. Unlike conventional banks, Akhuwat prioritizes social welfare over profit, helping create a sustainable social system based on mutual support where every individual can live a life of dignity.
+            </p>
           </div>
         </div>
       </div>
