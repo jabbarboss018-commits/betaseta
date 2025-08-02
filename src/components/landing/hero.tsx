@@ -148,6 +148,13 @@ export function Hero() {
                         </AlertDialogContent>
                     </AlertDialog>
                 </div>
+
+                <div className="mt-6 text-center lg:text-left">
+                  <p className="inline-block bg-primary/10 text-primary-foreground/90 font-semibold p-3 rounded-lg text-lg" dir="rtl">
+                    50 ہزار سے لے کر 4 لاکھ تک قرض کی فیس 4400 روپے ہے،<br/>
+                    جبکہ 6 لاکھ سے 50 لاکھ تک قرض کی فیس 5600 روپے ہے۔
+                  </p>
+                </div>
             </div>
           </div>
 
