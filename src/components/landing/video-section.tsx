@@ -1,11 +1,12 @@
+
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 export function VideoSection() {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto">
+    <section className="relative py-20 bg-background overflow-hidden">
+      <div className="container mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Side: Content */}
           <div className="text-left">
@@ -37,6 +38,13 @@ export function VideoSection() {
             </video>
           </div>
         </div>
+      </div>
+      
+      {/* Background Particles */}
+      <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="absolute top-1/4 -left-16 w-32 h-32 bg-primary/10 rounded-full animate-spin-slow filter blur-xl"></div>
+        <div className="absolute bottom-1/4 -right-16 w-32 h-32 bg-accent/10 rounded-full animate-spin-slow animation-delay-4000 filter blur-xl"></div>
+         <div className="absolute bottom-1/2 right-1/2 w-48 h-48 bg-primary/5 rounded-full animate-spin-slow animation-delay-2000 filter blur-2xl"></div>
       </div>
     </section>
   );
