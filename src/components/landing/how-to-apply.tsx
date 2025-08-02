@@ -89,70 +89,68 @@ export function HowToApply() {
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Center line */}
+        {/* Timeline for Desktop */}
+        <div className="hidden md:block relative">
           <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200" aria-hidden="true"></div>
-
           <div className="relative flex flex-col gap-12">
             {steps.map((step, index) => (
-              <div key={index} className="relative flex items-center">
-                {/* Step Content */}
-                <div
-                  className={`w-[calc(50%-2rem)] flex ${
-                    index % 2 === 0 ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`w-full max-w-md p-6 bg-secondary/30 rounded-lg shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-1 ${
-                      index % 2 === 0 ? "text-right" : "text-left"
-                    }`}
-                  >
-                    <div
-                      className={`flex items-center gap-4 ${
-                        index % 2 === 0 ? "flex-row-reverse" : ""
-                      }`}
-                    >
+              <div key={index} className={`flex items-center w-full ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                <div className={`w-1/2 px-4 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                  <div className="p-6 bg-secondary/30 rounded-lg shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-1">
+                    <div className={`flex items-center gap-4 ${index % 2 === 0 ? "flex-row-reverse" : ""}`}>
                       {step.icon}
-                      <h3 className="text-xl font-bold font-headline text-foreground">
-                        {step.title}
-                      </h3>
+                      <h3 className="text-xl font-bold font-headline text-foreground">{step.title}</h3>
                     </div>
-                    <p className="text-muted-foreground mt-3">
-                      {step.description}
-                    </p>
-                    {step.points && step.points.length > 0 && (
-                      <ul
-                        className={`list-disc list-outside text-muted-foreground space-y-1 mt-2 ${
-                          index % 2 === 0 ? "pr-5" : "pl-5"
-                        }`}
-                      >
-                        {step.points.map((point, i) => (
-                          <li key={i}>{point}</li>
-                        ))}
+                    <p className="text-muted-foreground mt-3">{step.description}</p>
+                    {step.points && (
+                      <ul className={`list-none space-y-1 mt-2 text-muted-foreground`}>
+                        {step.points.map((point, i) => <li key={i}>{point}</li>)}
                       </ul>
                     )}
-                    {step.extra && (
-                      <p className="text-xs text-muted-foreground/80 mt-3">
-                        {step.extra}
-                      </p>
-                    )}
+                    {step.extra && <p className="text-xs text-muted-foreground/80 mt-3">{step.extra}</p>}
                   </div>
                 </div>
-
-                {/* Timeline Circle */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white font-bold text-lg shadow-md">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white font-bold text-lg shadow-md animate-pulse-glow">
                     {index + 1}
                   </div>
                 </div>
-
-                {/* Spacer */}
-                <div className="w-[calc(50%+2rem)]"></div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Timeline for Mobile */}
+        <div className="md:hidden relative">
+          <div className="absolute left-6 top-0 h-full w-0.5 bg-gray-200" aria-hidden="true"></div>
+          <div className="relative flex flex-col gap-12">
+            {steps.map((step, index) => (
+              <div key={index} className="flex items-start w-full pl-16">
+                 <div className="absolute left-6 top-0 -translate-x-1/2 z-10">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white font-bold text-lg shadow-md animate-pulse-glow">
+                       {index + 1}
+                    </div>
+                </div>
+                <div className="w-full">
+                  <div className="p-6 bg-secondary/30 rounded-lg shadow-lg border-l-4 border-primary">
+                    <div className="flex items-center gap-4">
+                      {step.icon}
+                      <h3 className="text-xl font-bold font-headline text-foreground">{step.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground mt-3">{step.description}</p>
+                    {step.points && (
+                      <ul className="list-disc list-outside pl-5 text-muted-foreground space-y-1 mt-2">
+                        {step.points.map((point, i) => <li key={i}>{point}</li>)}
+                      </ul>
+                    )}
+                    {step.extra && <p className="text-xs text-muted-foreground/80 mt-3">{step.extra}</p>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
 
         <div className="text-center mt-12">
           <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
