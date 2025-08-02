@@ -24,21 +24,29 @@ let app;
 let auth;
 let db;
 
-if (isConfigValid) {
-    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    auth = getAuth(app);
-    db = getFirestore(app);
-} else {
-    console.warn("Firebase config is incomplete. Firebase services will not be initialized.");
-    // Provide dummy objects to prevent app from crashing
+try {
+    if (isConfigValid) {
+        app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+        auth = getAuth(app);
+        db = getFirestore(app);
+    } else {
+        console.warn("Firebase config is incomplete. Firebase services will not be initialized.");
+        // Provide dummy objects to prevent app from crashing if config is invalid
+        app = {};
+        auth = {};
+        db = {};
+    }
+} catch (e) {
+    console.error("Failed to initialize Firebase", e);
     app = {};
     auth = {};
     db = {};
 }
 
+
 // Function to add a new loan application
 export const addLoanApplication = async (applicationData: any) => {
-    if (!db || typeof db.collection !== 'function') throw new Error("Firestore is not initialized.");
+    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
     const dataWithTimestamp = {
         ...applicationData,
         submittedAt: serverTimestamp()
@@ -49,28 +57,32 @@ export const addLoanApplication = async (applicationData: any) => {
 
 // Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
-    if (!db || typeof db.collection !== 'function') throw new Error("Firestore is not initialized.");
+    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await updateDoc(applicationRef, { status, adminNotes });
 };
 
 // Function to delete a loan application
 export const deleteLoanApplication = async (id: string) => {
-    if (!db || typeof db.collection !== 'function') throw new Error("Firestore is not initialized.");
+    if (!db || typeof (db as any).collection !== 'function') throw new Error("Firestore is not initialized.");
     const applicationRef = doc(db, "loanApplication", id);
     await deleteDoc(applicationRef);
 };
 
 // Function to get a loan application by CNIC
 export const getLoanApplicationByCnic = async (cnic: string) => {
-    if (!db || typeof db.collection !== 'function') throw new Error("Firestore is not initialized.");
+    if (!db || typeof (db as any).collection !== 'function') {
+        throw new Error("Firestore is not initialized.");
+    }
     const q = query(collection(db, "loanApplication"), where("cnic", "==", cnic));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
         const docData = querySnapshot.docs[0].data();
+        const submittedAt = docData.submittedAt instanceof Timestamp ? docData.submittedAt.toDate().toISOString() : new Date().toISOString();
         return {
             id: querySnapshot.docs[0].id,
             ...docData,
+            submittedAt,
         };
     }
     return null;
