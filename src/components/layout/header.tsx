@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/logo';
-import { Facebook, Twitter, Instagram, Rss, Heart, Search } from 'lucide-react';
+import { Heart, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '../ui/input';
 
@@ -13,13 +13,13 @@ export function Header() {
         {/* Logo with angled background */}
         <div className="absolute left-0 top-0 h-full w-48 md:w-64">
           <div 
-            className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-green-600 to-yellow-400"
+            className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-green-600 to-yellow-400 animate-shimmer"
             style={{
-              clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)'
+              clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)',
             }}
           ></div>
           <div className="relative flex h-full items-center justify-center pr-8">
-            <Logo className="h-12 w-auto" />
+            <Logo className="h-[90px] w-auto" />
           </div>
         </div>
         
@@ -27,7 +27,7 @@ export function Header() {
         <div className="w-48 md:w-64 flex-shrink-0"></div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex flex-grow items-center justify-center gap-4 lg:gap-6 text-md font-medium relative">
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-6 lg:gap-8 text-md font-medium relative">
           <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">
             Home
           </Link>
@@ -58,7 +58,7 @@ export function Header() {
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Search className="h-5 w-5 text-foreground/60" />
+                <Search className="h-6 w-6 text-foreground/60" />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -71,25 +71,9 @@ export function Header() {
             </DialogContent>
           </Dialog>
 
-          {/* Social Media Icons */}
-          <div className="hidden md:flex items-center gap-2">
-            <Link href="#" aria-label="Twitter">
-              <Twitter className="h-5 w-5 text-foreground/60 hover:text-primary" />
-            </Link>
-            <Link href="#" aria-label="Facebook">
-              <Facebook className="h-5 w-5 text-foreground/60 hover:text-primary" />
-            </Link>
-            <Link href="#" aria-label="Instagram">
-              <Instagram className="h-5 w-5 text-foreground/60 hover:text-primary" />
-            </Link>
-            <Link href="#" aria-label="Vimeo">
-              <Rss className="h-5 w-5 text-foreground/60 hover:text-primary" />
-            </Link>
-          </div>
-
           {/* Donate Button */}
           <Button
-            className="min-w-[100px] bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500"
+            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500 shadow-lg px-6 py-3 h-auto"
           >
             <Heart className="h-4 w-4" />
             DONATE
