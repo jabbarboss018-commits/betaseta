@@ -7,46 +7,27 @@ import { Input } from '../ui/input';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white shadow-md">
-      {/* Top bar */}
-      <div style={{ backgroundColor: '#006838' }} className="text-white">
-        <div className="container flex items-center justify-between w-full h-[120px] px-[5%]">
-          {/* Logo Section */}
-          <div className="h-[70px] w-auto">
-            <Logo className="h-full w-auto" />
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Social Media Icons */}
-            <div className="flex items-center gap-2">
-              <Link href="#" aria-label="Twitter">
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link href="#" aria-label="Facebook">
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link href="#" aria-label="Instagram">
-                <Instagram className="h-5 w-5" />
-              </Link>
-              <Link href="#" aria-label="Vimeo">
-                <Rss className="h-5 w-5" />
-              </Link>
-            </div>
-
-            {/* Donate Button */}
-            <Button
-              className="min-w-[80px] h-[38px] bg-yellow-400 hover:bg-yellow-500 text-white font-normal rounded-md flex items-center justify-center gap-2 text-md "
-            >
-              <Heart className="h-4 w-4" />
-              DONATE
-            </Button>
+    <header className="relative w-full bg-white shadow-md z-50">
+      <div className="container mx-auto flex h-24 items-center justify-between px-6">
+        
+        {/* Logo with angled background */}
+        <div className="absolute left-0 top-0 h-full w-48 md:w-64">
+          <div 
+            className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-green-600 to-yellow-400"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)'
+            }}
+          ></div>
+          <div className="relative flex h-full items-center justify-center pr-8">
+            <Logo className="h-12 w-auto" />
           </div>
         </div>
-      </div>
+        
+        {/* Spacer for the logo area */}
+        <div className="w-48 md:w-64 flex-shrink-0"></div>
 
-      {/* Menu section */}
-      <div className="container flex h-[80px] w-full items-center justify-between px-[5%] border-b border-dotted border-b-2 border-green-900">
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-md font-medium">
+        {/* Navigation */}
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-4 lg:gap-6 text-md font-medium relative">
           <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">
             Home
           </Link>
@@ -65,12 +46,14 @@ export function Header() {
           <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
             Privacy Policy
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
-            Donate
-          </Link>
+          {/* Yellow accent line */}
+          <div className="absolute -bottom-9 h-1 w-full">
+            <div className="h-full w-20 bg-yellow-400 mx-auto"></div>
+          </div>
         </nav>
 
-        <div className="ml-auto">
+        {/* Right side actions */}
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Search Dialog */}
           <Dialog>
             <DialogTrigger asChild>
@@ -87,6 +70,30 @@ export function Header() {
               </div>
             </DialogContent>
           </Dialog>
+
+          {/* Social Media Icons */}
+          <div className="hidden md:flex items-center gap-2">
+            <Link href="#" aria-label="Twitter">
+              <Twitter className="h-5 w-5 text-foreground/60 hover:text-primary" />
+            </Link>
+            <Link href="#" aria-label="Facebook">
+              <Facebook className="h-5 w-5 text-foreground/60 hover:text-primary" />
+            </Link>
+            <Link href="#" aria-label="Instagram">
+              <Instagram className="h-5 w-5 text-foreground/60 hover:text-primary" />
+            </Link>
+            <Link href="#" aria-label="Vimeo">
+              <Rss className="h-5 w-5 text-foreground/60 hover:text-primary" />
+            </Link>
+          </div>
+
+          {/* Donate Button */}
+          <Button
+            className="min-w-[100px] bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500"
+          >
+            <Heart className="h-4 w-4" />
+            DONATE
+          </Button>
         </div>
       </div>
     </header>
