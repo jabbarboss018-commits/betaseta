@@ -91,11 +91,11 @@ export function HowToApply() {
 
         {/* Timeline for Desktop */}
         <div className="hidden md:block relative">
-          <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200" aria-hidden="true"></div>
+          <div className="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200 -translate-x-0.5" aria-hidden="true"></div>
           <div className="relative flex flex-col gap-12">
             {steps.map((step, index) => (
-              <div key={index} className={`flex items-center w-full ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                <div className={`w-1/2 px-4 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+              <div key={index} className="relative flex items-center w-full">
+                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left ml-auto'}`}>
                   <div className="p-6 bg-secondary/30 rounded-lg shadow-lg border-l-4 border-primary transition-transform duration-300 hover:-translate-y-1">
                     <div className={`flex items-center gap-4 ${index % 2 === 0 ? "flex-row-reverse" : ""}`}>
                       {step.icon}
@@ -110,7 +110,7 @@ export function HowToApply() {
                     {step.extra && <p className="text-xs text-muted-foreground/80 mt-3">{step.extra}</p>}
                   </div>
                 </div>
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                   <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white font-bold text-lg shadow-md animate-pulse-glow">
                     {index + 1}
                   </div>
@@ -122,10 +122,10 @@ export function HowToApply() {
 
         {/* Timeline for Mobile */}
         <div className="md:hidden relative">
-          <div className="absolute left-6 top-0 h-full w-0.5 bg-gray-200" aria-hidden="true"></div>
+          <div className="absolute left-6 top-0 h-full w-0.5 bg-gray-200 -translate-x-0.5" aria-hidden="true"></div>
           <div className="relative flex flex-col gap-12">
             {steps.map((step, index) => (
-              <div key={index} className="flex items-start w-full pl-16">
+              <div key={index} className="relative w-full pl-16">
                  <div className="absolute left-6 top-0 -translate-x-1/2 z-10">
                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white font-bold text-lg shadow-md animate-pulse-glow">
                        {index + 1}
