@@ -21,8 +21,8 @@ const features = [
 
 export function Features() {
   return (
-    <section className="bg-primary text-primary-foreground py-12">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-12">
+      <div className="container mx-auto max-w-6xl bg-primary text-primary-foreground rounded-lg py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center gap-2">

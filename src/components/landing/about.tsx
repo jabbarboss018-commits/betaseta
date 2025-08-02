@@ -22,7 +22,7 @@ export function About() {
             />
             
             {/* Floating Image */}
-            <div className="absolute top-8 left-8 w-[400px] h-[400px] z-10 rounded-lg overflow-hidden shadow-2xl border-4 border-white">
+            <div className="absolute top-8 left-8 w-[350px] h-[350px] z-10 rounded-lg overflow-hidden shadow-2xl border-4 border-white -ml-[5%]">
               <Image 
                   src="/sec1.jpeg" 
                   alt="Aid distribution" 
