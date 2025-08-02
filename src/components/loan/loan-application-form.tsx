@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -17,197 +17,232 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 const formSchema = z.object({
+  selfie: z.any().refine(files => files?.length > 0, "Selfie is required."),
   fullName: z.string().min(2, { message: "Full name is required." }),
-  fatherName: z.string().min(2, { message: "Father's name is required." }),
   cnic: z.string().regex(/^\d{13}$/, { message: "Please enter a valid 13-digit CNIC number." }),
-  dateOfBirth: z.string().min(1, { message: "Date of birth is required." }),
-  phoneNumber: z.string().regex(/^\d{11,12}$/, { message: "Please enter a valid phone number." }),
-  homeAddress: z.string().min(5, { message: "Home address is required." }),
-  loanAmount: z.coerce.number().min(1000, { message: "Loan amount must be at least 1000." }),
+  mobileNumber: z.string().regex(/^\d{11,12}$/, { message: "Please enter a valid phone number." }),
   loanType: z.string({ required_error: "Please select a loan type." }),
-  eemiPlan: z.string({ required_error: "Please select an EEMI plan." }),
+  loanAmount: z.string({ required_error: "Please select a loan amount." }),
 });
+
+const loanOptions = [
+    { value: "50000", label: "50,000 PKR", period: "12 Months", fee: 4400 },
+    { value: "100000", label: "100,000 PKR", period: "12 Months", fee: 4400 },
+    { value: "200000", label: "200,000 PKR", period: "24 Months", fee: 4400 },
+    { value: "300000", label: "300,000 PKR", period: "24 Months", fee: 4400 },
+    { value: "400000", label: "400,000 PKR", period: "36 Months", fee: 4400 },
+    { value: "500000", label: "500,000 PKR", period: "36 Months", fee: 4400 },
+    { value: "1000000", label: "1,000,000 PKR", period: "48 Months", fee: 5600 },
+    { value: "2000000", label: "2,000,000 PKR", period: "48 Months", fee: 5600 },
+    { value: "3000000", label: "3,000,000 PKR", period: "60 Months", fee: 5600 },
+    { value: "4000000", label: "4,000,000 PKR", period: "60 Months", fee: 5600 },
+    { value: "5000000", label: "5,000,000 PKR", period: "60 Months", fee: 5600 },
+];
 
 export function LoanApplicationForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLoan, setSelectedLoan] = useState<{ value: string; label: string; period: string; fee: number; } | null>(null);
+  const [monthlyInstallment, setMonthlyInstallment] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
-      fatherName: "",
       cnic: "",
-      dateOfBirth: "",
-      phoneNumber: "",
-      homeAddress: "",
-      loanAmount: 10000,
+      mobileNumber: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const loanAmount = form.watch("loanAmount");
+
+  useEffect(() => {
+    if (loanAmount) {
+      const loanData = loanOptions.find(option => option.value === loanAmount);
+      setSelectedLoan(loanData || null);
+      if (loanData) {
+        const amount = parseInt(loanData.value);
+        const periodInMonths = parseInt(loanData.period.split(" ")[0]);
+        setMonthlyInstallment(amount / periodInMonths);
+      } else {
+        setMonthlyInstallment(0);
+      }
+    } else {
+      setSelectedLoan(null);
+      setMonthlyInstallment(0);
+    }
+  }, [loanAmount]);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    console.log(values);
-    // Here you would typically send the data to your backend
-    setTimeout(() => {
+    try {
+      // Note: File upload needs to be handled separately (e.g., to Firebase Storage)
+      // For this example, we'll just store the metadata.
+      const docRef = await addDoc(collection(db, "loanApplications"), {
+        ...values,
+        selfie: values.selfie[0].name, // Storing filename for reference
+        loanPeriod: selectedLoan?.period,
+        registrationFee: selectedLoan?.fee,
+        monthlyInstallment: monthlyInstallment.toFixed(2),
+        submittedAt: new Date(),
+      });
+      console.log("Document written with ID: ", docRef.id);
+      
       toast({
-        title: "Application Submitted",
+        title: "Application Submitted Successfully!",
         description: "We have received your loan application. We will get back to you soon.",
       });
-      setIsLoading(false);
       form.reset();
-    }, 2000);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: "There was an error submitting your application. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-w-lg mx-auto text-left">
+        <FormField
+            control={form.control}
+            name="selfie"
+            render={({ field: { onChange, value, ...rest } }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
+                <FormLabel>Upload Selfie*</FormLabel>
+                <FormControl>
+                    <Input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={(e) => onChange(e.target.files)}
+                        className="bg-white" 
+                        {...rest}
+                    />
+                </FormControl>
+                <FormMessage />
+                <p className="text-xs text-muted-foreground">(Max image size: 1MB)</p>
                 </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="fatherName"
-              render={({ field }) => (
+            )}
+        />
+        <FormField
+          control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name*</FormLabel>
+              <FormControl>
+                <Input className="bg-white" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="cnic"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>CNIC Number*</FormLabel>
+              <FormControl>
+                <Input className="bg-white" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="mobileNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Mobile Number*</FormLabel>
+              <FormControl>
+                <Input className="bg-white" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+            control={form.control}
+            name="loanType"
+            render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Father's Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Richard Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="cnic"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>CNIC Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. 1234567890123" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="dateOfBirth"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date of Birth</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. 03001234567" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="homeAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Home Address</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. House 123, Street 4, Islamabad" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="loanAmount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Loan Amount (PKR)</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="e.g. 50000" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-                control={form.control}
-                name="loanType"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Loan Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a loan type" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
+                <FormLabel>Loan Type*</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                    <SelectTrigger className="bg-white">
+                        <SelectValue placeholder="--select--" />
+                    </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                        <SelectItem value="apna-ghar">Apna Ghar Apni Chhat</SelectItem>
                         <SelectItem value="personal">Personal Loan</SelectItem>
+                        <SelectItem value="home">Home Loan</SelectItem>
                         <SelectItem value="business">Business Loan</SelectItem>
-                        <SelectItem value="education">Education Loan</SelectItem>
-                        <SelectItem value="agriculture">Agriculture Loan</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="eemiPlan"
-                render={({ field }) => (
-                    <FormItem className="md:col-span-2">
-                    <FormLabel>EEMI Plan</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select an EEMI plan" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem value="3">3 Months</SelectItem>
-                        <SelectItem value="6">6 Months</SelectItem>
-                        <SelectItem value="12">12 Months</SelectItem>
-                        <SelectItem value="18">18 Months</SelectItem>
-                        <SelectItem value="24">24 Months</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
+                        <SelectItem value="wedding">Wedding Loan</SelectItem>
+                        <SelectItem value="car">Car Loan</SelectItem>
+                        <SelectItem value="student">Student Loan</SelectItem>
+                    </SelectContent>
+                </Select>
+                <FormMessage />
+                </FormItem>
+            )}
+        />
+        <FormField
+            control={form.control}
+            name="loanAmount"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Loan Amount*</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                    <SelectTrigger className="bg-white">
+                        <SelectValue placeholder="--select--" />
+                    </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                        {loanOptions.map(option => (
+                            <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+                <FormMessage />
+                </FormItem>
+            )}
+        />
+        <FormItem>
+            <FormLabel>Loan Period*</FormLabel>
+            <FormControl>
+                <Input readOnly value={selectedLoan?.period || ""} className="bg-gray-200" />
+            </FormControl>
+        </FormItem>
+        <FormItem>
+            <FormLabel>Registration Fees*</FormLabel>
+            <FormControl>
+                <Input readOnly value={selectedLoan ? `${selectedLoan.fee.toLocaleString()} PKR` : ""} className="bg-gray-200" />
+            </FormControl>
+        </FormItem>
+        <FormItem>
+            <FormLabel>Monthly Installment*</FormLabel>
+            <FormControl>
+                <Input readOnly value={monthlyInstallment ? `≈ ${Math.round(monthlyInstallment).toLocaleString()} PKR` : ""} className="bg-gray-200" />
+            </FormControl>
+        </FormItem>
        
-        <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isLoading}>
+        <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg py-6" disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Submit Application
+          SUBMIT APPLICATION
         </Button>
       </form>
     </Form>
