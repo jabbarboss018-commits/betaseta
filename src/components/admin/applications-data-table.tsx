@@ -24,36 +24,61 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { collection, getDocs, orderBy, query } from "firebase/firestore"
+import { collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { columns, LoanApplication } from "./columns"
 import { Skeleton } from "../ui/skeleton"
 
 async function getLoanApplications(): Promise<LoanApplication[]> {
   try {
+    if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+      console.warn("Firestore is not initialized, skipping fetch.");
+      return [];
+    }
+
     const q = query(collection(db, "loanApplication"), orderBy("submittedAt", "desc"));
     const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      console.log("No documents found in loanApplication collection.");
+      return [];
+    }
+    
     const applications = querySnapshot.docs.map(doc => {
       const data = doc.data();
+      let submittedAt: string;
+      if (data.submittedAt instanceof Timestamp) {
+        submittedAt = data.submittedAt.toDate().toISOString();
+      } else if (data.submittedAt && typeof data.submittedAt.seconds === 'number') {
+        submittedAt = new Date(data.submittedAt.seconds * 1000).toISOString();
+      } else {
+        submittedAt = new Date().toISOString();
+      }
+
       return {
         id: doc.id,
-        fullName: data.fullName,
-        cnic: data.cnic,
-        mobileNumber: data.mobileNumber,
-        loanType: data.loanType,
-        loanAmount: data.loanAmount,
-        selfieUrl: data.selfieUrl,
-        loanPeriod: data.loanPeriod,
-        registrationFee: data.registrationFee,
-        monthlyInstallment: data.monthlyInstallment,
+        fullName: data.fullName || '',
+        cnic: data.cnic || '',
+        mobileNumber: data.mobileNumber || '',
+        loanType: data.loanType || '',
+        loanAmount: data.loanAmount || '0',
+        selfieUrl: data.selfieUrl || '',
+        loanPeriod: data.loanPeriod || '',
+        registrationFee: data.registrationFee || 0,
+        monthlyInstallment: data.monthlyInstallment || '0',
         status: data.status || 'Pending',
         adminNotes: data.adminNotes || '',
-        submittedAt: data.submittedAt.toDate().toISOString(),
+        submittedAt: submittedAt,
       };
     });
+    
     return applications;
   } catch (error) {
     console.error("Error fetching loan applications: ", error);
+    // This will help diagnose permission errors vs other issues.
+    if (error instanceof Error && 'code' in error && (error as any).code === 'permission-denied') {
+        console.error("Firestore permission denied. Check your security rules.");
+    }
     return [];
   }
 }
