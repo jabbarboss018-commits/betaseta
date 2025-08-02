@@ -14,12 +14,10 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-  DialogClose,
+  DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -27,7 +25,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { deleteLoanApplication, updateLoanApplicationStatus } from "@/lib/firebase";
 import { useToast } from "@/hooks/use-toast";
-import Image from "next/image";
 
 export type LoanApplication = {
   id: string;

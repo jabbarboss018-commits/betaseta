@@ -24,14 +24,57 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
+import { collection, getDocs, orderBy, query } from "firebase/firestore"
+import { db } from "@/lib/firebase"
 import { columns, LoanApplication } from "./columns"
+import { Skeleton } from "../ui/skeleton"
 
-export function ApplicationsDataTable({ data }: { data: LoanApplication[] }) {
+async function getLoanApplications(): Promise<LoanApplication[]> {
+  try {
+    const q = query(collection(db, "loanApplication"), orderBy("submittedAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    const applications = querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        fullName: data.fullName,
+        cnic: data.cnic,
+        mobileNumber: data.mobileNumber,
+        loanType: data.loanType,
+        loanAmount: data.loanAmount,
+        selfieUrl: data.selfieUrl,
+        loanPeriod: data.loanPeriod,
+        registrationFee: data.registrationFee,
+        monthlyInstallment: data.monthlyInstallment,
+        status: data.status || 'Pending',
+        adminNotes: data.adminNotes || '',
+        submittedAt: data.submittedAt.toDate().toISOString(),
+      };
+    });
+    return applications;
+  } catch (error) {
+    console.error("Error fetching loan applications: ", error);
+    return [];
+  }
+}
+
+export function ApplicationsDataTable() {
+  const [data, setData] = React.useState<LoanApplication[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const applications = await getLoanApplications();
+      setData(applications);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -51,6 +94,33 @@ export function ApplicationsDataTable({ data }: { data: LoanApplication[] }) {
       rowSelection,
     },
   })
+
+  if (isLoading) {
+    return (
+        <div className="w-full">
+            <div className="flex items-center py-4">
+                <Skeleton className="h-10 w-1/3" />
+                <Skeleton className="h-10 w-20 ml-auto" />
+            </div>
+            <div className="rounded-md border">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            {Array.from({ length: 5 }).map((_, i) => <TableHead key={i}><Skeleton className="h-6 w-full" /></TableHead>)}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {Array.from({ length: 10 }).map((_, i) => (
+                            <TableRow key={i}>
+                                {Array.from({ length: 5 }).map((_, j) => <TableCell key={j}><Skeleton className="h-6 w-full" /></TableCell>)}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+        </div>
+    )
+  }
 
   return (
     <div className="w-full">

@@ -17,8 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addLoanApplication } from "@/lib/firebase";
 import { uploadSelfie } from "@/lib/cloudinary";
 
 const formSchema = z.object({
@@ -94,7 +93,7 @@ export function LoanApplicationForm() {
       const selfieDataUri = await fileToDataUri(selfieFile);
       const selfieUrl = await uploadSelfie(selfieDataUri);
 
-      const docRef = await addDoc(collection(db, "loanApplications"), {
+      await addLoanApplication({
         fullName: values.fullName,
         cnic: values.cnic,
         mobileNumber: values.mobileNumber,
@@ -105,8 +104,9 @@ export function LoanApplicationForm() {
         registrationFee: selectedLoan?.fee,
         monthlyInstallment: monthlyInstallment.toFixed(2),
         submittedAt: new Date(),
+        status: "Pending",
+        adminNotes: "",
       });
-      console.log("Document written with ID: ", docRef.id);
       
       toast({
         title: "Application Submitted Successfully!",

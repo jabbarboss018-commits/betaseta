@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, doc, updateDoc, deleteDoc, collection, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -35,6 +35,13 @@ if (isConfigValid) {
     auth = {};
     db = {};
 }
+
+// Function to add a new loan application
+export const addLoanApplication = async (applicationData: any) => {
+    if (!db) throw new Error("Firestore is not initialized.");
+    await addDoc(collection(db, "loanApplication"), applicationData);
+};
+
 
 // Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
