@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { uploadSelfie } from "@/lib/cloudinary";
 
 const formSchema = z.object({
-  selfie: z.any().refine(files => files?.length > 0, "Selfie is required."),
+  selfie: z.instanceof(FileList).refine(files => files?.length === 1, "Selfie is required."),
   fullName: z.string().min(2, { message: "Full name is required." }),
   cnic: z.string().regex(/^\d{13}$/, { message: "Please enter a valid 13-digit CNIC number." }),
   mobileNumber: z.string().regex(/^\d{11,12}$/, { message: "Please enter a valid phone number." }),
@@ -80,11 +81,16 @@ export function LoanApplicationForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      // Note: File upload needs to be handled separately (e.g., to Firebase Storage)
-      // For this example, we'll just store the metadata.
+      const selfieFile = values.selfie[0];
+      const selfieUrl = await uploadSelfie(selfieFile);
+
       const docRef = await addDoc(collection(db, "loanApplications"), {
-        ...values,
-        selfie: values.selfie[0].name, // Storing filename for reference
+        fullName: values.fullName,
+        cnic: values.cnic,
+        mobileNumber: values.mobileNumber,
+        loanType: values.loanType,
+        loanAmount: values.loanAmount,
+        selfieUrl,
         loanPeriod: selectedLoan?.period,
         registrationFee: selectedLoan?.fee,
         monthlyInstallment: monthlyInstallment.toFixed(2),
@@ -122,7 +128,9 @@ export function LoanApplicationForm() {
                     <Input 
                         type="file" 
                         accept="image/*"
-                        onChange={(e) => onChange(e.target.files)}
+                        onChange={(e) => {
+                            onChange(e.target.files)
+                        }}
                         className="bg-white" 
                         {...rest}
                     />
