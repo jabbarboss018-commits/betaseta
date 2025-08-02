@@ -85,13 +85,13 @@ export function Hero() {
                 </p>
 
                 <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                    <Button size="lg" asChild className="bg-primary text-primary-foreground font-bold text-lg px-8 py-6 rounded-lg shadow-lg hover:bg-primary/90 transition-all transform hover:scale-105 w-full sm:w-auto">
+                    <Button asChild size="lg" variant="cta" className="bg-primary text-primary-foreground font-bold text-lg px-8 py-6 rounded-lg shadow-lg hover:text-accent-foreground hover:bg-accent w-full sm:w-auto">
                         <Link href="/apply">Apply For Loan <ChevronRight className="ml-2 h-5 w-5" /></Link>
                     </Button>
                      <AlertDialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
                         <AlertDialogTrigger asChild>
-                            <Button size="lg" variant="ghost" className="text-lg font-bold w-full sm:w-auto" onClick={openDialog}>
-                                <PlayCircle className="mr-2 h-7 w-7 text-primary"/>
+                            <Button size="lg" variant="cta" className="bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground text-lg font-bold w-full sm:w-auto" onClick={openDialog}>
+                                <PlayCircle className="mr-2 h-7 w-7"/>
                                 Check Status
                             </Button>
                         </AlertDialogTrigger>
