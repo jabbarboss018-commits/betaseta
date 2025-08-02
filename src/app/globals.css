@@ -95,7 +95,8 @@ body {
     }
   }
   .animate-shimmer {
-    animation: shimmer 4s infinite linear;
+    background: linear-gradient(110deg, #006838, #a8d726, #006838);
     background-size: 200% 100%;
+    animation: shimmer 4s infinite linear;
   }
 }

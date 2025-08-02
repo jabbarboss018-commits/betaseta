@@ -7,13 +7,13 @@ import { Input } from '../ui/input';
 
 export function Header() {
   return (
-    <header className="relative w-full bg-white shadow-md z-50">
+    <header className="sticky top-0 w-full bg-white shadow-md z-50">
       <div className="container mx-auto flex h-24 items-center justify-between px-6">
         
         {/* Logo with angled background */}
         <div className="absolute left-0 top-0 h-full w-48 md:w-64">
           <div 
-            className="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-green-600 to-yellow-400 animate-shimmer"
+            className="absolute left-0 top-0 h-full w-full animate-shimmer"
             style={{
               clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0% 100%)',
             }}
@@ -27,23 +27,23 @@ export function Header() {
         <div className="w-48 md:w-64 flex-shrink-0"></div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex flex-grow items-center justify-center gap-8 lg:gap-10 text-lg font-medium relative">
-          <Link href="/" className="transition-colors hover:text-primary text-primary font-bold">
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-10 lg:gap-14 text-lg font-medium relative">
+          <Link href="/" className="transition-colors hover:text-primary text-primary font-bold text-xl">
             Home
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
             Check Status
           </Link>
-          <Link href="/apply" className="transition-colors hover:text-primary text-foreground/60">
+          <Link href="/apply" className="transition-colors hover:text-primary text-foreground/60 text-xl">
             How To Apply
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
             Our Impact
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
             Contact And Help
           </Link>
-          <Link href="#" className="transition-colors hover:text-primary text-foreground/60">
+          <Link href="#" className="transition-colors hover:text-primary text-foreground/60 text-xl">
             Privacy Policy
           </Link>
           {/* Yellow accent line */}
@@ -58,7 +58,7 @@ export function Header() {
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Search className="h-8 w-8 text-foreground/60" />
+                <Search className="h-10 w-10 text-foreground/60" />
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -73,9 +73,9 @@ export function Header() {
 
           {/* Donate Button */}
           <Button
-            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-md hover:from-green-600 hover:to-yellow-500 shadow-lg px-8 py-4 h-auto"
+            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-lg hover:from-green-600 hover:to-yellow-500 shadow-lg px-12 py-5 h-auto"
           >
-            <Heart className="h-4 w-4" />
+            <Heart className="h-5 w-5" />
             DONATE
           </Button>
         </div>
