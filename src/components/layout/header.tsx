@@ -62,7 +62,7 @@ export function Header() {
         </div>
 
         {/* Desktop: Navigation */}
-        <nav className="hidden md:flex flex-grow items-center justify-center gap-12 lg:gap-16 text-lg font-medium relative text-xl">
+        <nav className="hidden md:flex flex-grow items-center justify-center gap-8 lg:gap-12 text-lg font-medium relative">
           {navLinks.map((link, index) => (
              <Link key={link.href} href={link.href} className={`transition-colors hover:text-primary text-foreground/60 ${index === 0 ? 'text-primary font-bold' : ''}`}>
                 {link.label}
@@ -95,11 +95,12 @@ export function Header() {
 
           {/* Donate Button */}
           <Button
-            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 text-lg hover:from-green-600 hover:to-yellow-500 shadow-lg px-2 md:px-12 py-2 md:py-3 h-auto text-xs md:text-lg"
+            className="bg-gradient-to-r from-green-500 to-yellow-400 text-white font-bold rounded-md flex items-center justify-center gap-2 hover:from-green-600 hover:to-yellow-500 shadow-lg px-2 md:px-12 py-2 md:py-3 h-auto text-xs md:text-lg"
             style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)' }}
           >
             <Heart className="h-5 w-5 hidden md:block" />
-            DONATE
+            <span className="md:hidden">DONATE</span>
+            <span className="hidden md:block">DONATE</span>
           </Button>
         </div>
       </div>
