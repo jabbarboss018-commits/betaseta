@@ -55,12 +55,12 @@ export function Hero() {
 
 
   return (
-    <section className="relative bg-secondary/30 py-20 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative bg-secondary/30 pt-20 lg:pt-32 overflow-hidden">
+      <div className="container mx-auto sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-0 items-center">
           
           {/* Left Side: Content */}
-          <div className="flex items-center">
+          <div className="flex items-center px-4">
              {/* Social Icons */}
             <div className="hidden sm:flex flex-col items-center space-y-4 mr-6 text-muted-foreground">
                 <div className="w-px h-8 bg-border"></div>
@@ -152,22 +152,19 @@ export function Hero() {
           </div>
 
           {/* Right Side: Image */}
-          <div className="relative hidden lg:flex justify-center items-center h-[500px]">
-            <div className="absolute w-[500px] h-[500px] bg-primary/80 rounded-full blur-3xl opacity-30"></div>
-            <div className="absolute w-[480px] h-[480px] rounded-full border-4 border-dashed border-primary/20 animate-spin-slow"></div>
-
-            <div className="relative w-[450px] h-[450px] rounded-full overflow-hidden shadow-2xl">
-                 <Image 
-                    src="/hero.jpeg" 
-                    alt="Happy family discussing with a financial advisor"
-                    layout="fill"
-                    objectFit="cover"
-                    className="scale-110"
-                    data-ai-hint="family meeting advisor"
-                 />
-            </div>
-             <div className="absolute top-10 right-0 w-16 h-16 bg-accent rounded-full shadow-lg"></div>
-             <div className="absolute bottom-10 left-0 w-10 h-10 bg-primary rounded-full shadow-lg"></div>
+          <div className="relative hidden lg:flex h-full min-h-[500px]">
+            <Image 
+              src="/hero.jpeg" 
+              alt="Happy family discussing with a financial advisor"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-br-[80px]"
+              data-ai-hint="family meeting advisor"
+            />
+            <div 
+              className="absolute bottom-0 right-0 w-48 h-48 border-[6px] border-primary rounded-br-[80px]" 
+              style={{ borderTop: 'none', borderLeft: 'none' }}
+            ></div>
           </div>
         </div>
       </div>
