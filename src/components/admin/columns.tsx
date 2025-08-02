@@ -19,6 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -59,8 +60,6 @@ const ActionsCell = ({ row }: { row: { original: LoanApplication } }) => {
             await updateLoanApplicationStatus(application.id, status, adminNotes);
             toast({ title: "Success", description: "Application status updated." });
             setIsEditDialogOpen(false);
-            // Note: This will require a page refresh to see the changes in the table.
-            // For a more dynamic experience, we could lift state up or use a state management library.
             window.location.reload(); 
         } catch (error) {
             console.error("Failed to update status:", error);
@@ -88,47 +87,29 @@ const ActionsCell = ({ row }: { row: { original: LoanApplication } }) => {
     return (
         <>
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onSelect={() => window.open(application.selfieUrl, '_blank')}>
-                            View Selfie
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DialogTrigger asChild onSelect={(e) => e.preventDefault()}>
-                            <DropdownMenuItem>Edit Status</DropdownMenuItem>
-                        </DialogTrigger>
-                         <DialogTrigger asChild onSelect={(e) => e.preventDefault()}>
-                            <DropdownMenuItem className="text-red-600">Delete Application</DropdownMenuItem>
-                        </DialogTrigger>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem onSelect={() => window.open(application.selfieUrl, '_blank')}>
+                        View Selfie
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onSelect={() => setIsEditDialogOpen(true)}>
+                        Edit Status
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setIsDeleteDialogOpen(true)} className="text-red-600">
+                        Delete Application
+                    </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
 
-                    {/* Delete Dialog */}
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Are you sure?</DialogTitle>
-                            <DialogDescription>
-                                This action cannot be undone. This will permanently delete the loan application for {application.fullName}.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter>
-                            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>Cancel</Button>
-                            <Button variant="destructive" onClick={handleDelete} disabled={isSaving}>
-                                {isSaving ? "Deleting..." : "Delete"}
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-
-                 {/* Edit Dialog */}
+                {/* Edit Dialog */}
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                     <DialogTitle>Edit Application Status</DialogTitle>
@@ -169,6 +150,24 @@ const ActionsCell = ({ row }: { row: { original: LoanApplication } }) => {
                         <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
                         <Button onClick={handleStatusUpdate} disabled={isSaving}>
                             {isSaving ? "Saving..." : "Save changes"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Delete Dialog */}
+            <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Are you sure?</DialogTitle>
+                        <DialogDescription>
+                            This action cannot be undone. This will permanently delete the loan application for {application.fullName}.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>Cancel</Button>
+                        <Button variant="destructive" onClick={handleDelete} disabled={isSaving}>
+                            {isSaving ? "Deleting..." : "Delete"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
