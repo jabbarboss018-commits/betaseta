@@ -21,7 +21,7 @@ import { addLoanApplication } from "@/lib/firebase";
 import { uploadSelfie } from "@/lib/cloudinary";
 
 const formSchema = z.object({
-  selfie: z.instanceof(FileList).refine(files => files?.length === 1, "Selfie is required."),
+  selfie: z.any().refine(files => files?.length === 1, "Selfie is required."),
   fullName: z.string().min(2, { message: "Full name is required." }),
   cnic: z.string().regex(/^\d{13}$/, { message: "Please enter a valid 13-digit CNIC number." }),
   mobileNumber: z.string().regex(/^\d{11,12}$/, { message: "Please enter a valid phone number." }),
