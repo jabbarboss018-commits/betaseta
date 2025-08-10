@@ -1,11 +1,12 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { X, MessageSquare } from "lucide-react";
+import { X, MessageSquare, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getWhatsappContacts } from "@/lib/firebase";
 
 const WhatsappIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -13,19 +14,33 @@ const WhatsappIcon = () => (
     </svg>
 )
 
-const teamMembers = [
-    {
-        name: "Zeeshan ",
-        title: "Customer Support",
-        avatar: "/profile.png",
-        phone: "+92 344 7622377",
-        aiHint: "man portrait"
-    },
-    
-];
+type Contact = {
+    id: string;
+    name: string;
+    title: string;
+    phone: string;
+    avatarUrl: string;
+};
 
 export function WhatsappWidget() {
     const [isOpen, setIsOpen] = useState(false);
+    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+                const fetchedContacts = await getWhatsappContacts();
+                setContacts(fetchedContacts as Contact[]);
+            } catch (error) {
+                console.error("Failed to fetch WhatsApp contacts:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchContacts();
+    }, []);
 
     return (
         <>
@@ -60,15 +75,18 @@ export function WhatsappWidget() {
                     </Button>
                 </header>
                 <main className="p-4 space-y-4">
-                    {teamMembers.map((member, index) => (
-                        <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+                    {isLoading ? (
+                        <div className="flex justify-center items-center h-24">
+                            <Loader2 className="w-6 h-6 animate-spin text-gray-500" />
+                        </div>
+                    ) : contacts.map((member) => (
+                        <div key={member.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
                             <Image
-                                src={member.avatar}
+                                src={member.avatarUrl}
                                 alt={member.name}
                                 width={50}
                                 height={50}
                                 className="rounded-full"
-                                data-ai-hint={member.aiHint}
                             />
                             <div className="flex-1">
                                 <p className="font-semibold">{member.name}</p>

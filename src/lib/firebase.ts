@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
-import { getFirestore, doc, updateDoc, deleteDoc, collection, addDoc, serverTimestamp, query, where, getDocs, Timestamp, Firestore } from "firebase/firestore";
+import { getFirestore, doc, updateDoc, deleteDoc, collection, addDoc, serverTimestamp, query, where, getDocs, Timestamp, Firestore, orderBy } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -27,7 +27,7 @@ try {
     db = {} as Firestore;
 }
 
-// Function to add a new loan application
+// LOAN APPLICATION FUNCTIONS
 export const addLoanApplication = async (applicationData: any) => {
     const dataWithTimestamp = {
         ...applicationData,
@@ -36,26 +36,22 @@ export const addLoanApplication = async (applicationData: any) => {
     await addDoc(collection(db, "loanApplication"), dataWithTimestamp);
 };
 
-// Function to update loan application status and notes
 export const updateLoanApplicationStatus = async (id: string, status: string, adminNotes: string) => {
     const applicationRef = doc(db, "loanApplication", id);
     await updateDoc(applicationRef, { status, adminNotes });
 };
 
-// Function to delete a loan application
 export const deleteLoanApplication = async (id: string) => {
     const applicationRef = doc(db, "loanApplication", id);
     await deleteDoc(applicationRef);
 };
 
-// Function to get a loan application by CNIC
 export const getLoanApplicationByCnic = async (cnic: string) => {
     const q = query(collection(db, "loanApplication"), where("cnic", "==", cnic));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
         const docData = querySnapshot.docs[0].data();
-        // Handle timestamp conversion safely
         let submittedAt = new Date().toISOString();
         if (docData.submittedAt instanceof Timestamp) {
            submittedAt = docData.submittedAt.toDate().toISOString();
@@ -71,5 +67,27 @@ export const getLoanApplicationByCnic = async (cnic: string) => {
     }
     return null;
 }
+
+
+// WHATSAPP CONTACT FUNCTIONS
+export const getWhatsappContacts = async () => {
+    if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+      console.warn("Firestore is not initialized, skipping fetch.");
+      return [];
+    }
+    const q = query(collection(db, "whatsappContacts"), orderBy("name"));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const addWhatsappContact = async (contactData: any) => {
+    await addDoc(collection(db, "whatsappContacts"), contactData);
+};
+
+export const deleteWhatsappContact = async (id: string) => {
+    const contactRef = doc(db, "whatsappContacts", id);
+    await deleteDoc(contactRef);
+};
+
 
 export { app, auth, db };

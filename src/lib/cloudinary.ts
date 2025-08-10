@@ -19,14 +19,14 @@ if (
     });
 }
 
-export async function uploadSelfie(fileUri: string) {
+export async function uploadImage(fileUri: string, folder: string): Promise<string> {
     if (!process.env.CLOUDINARY_CLOUD_NAME) {
         throw new Error("Cloudinary is not configured.");
     }
 
     try {
         const result = await cloudinary.uploader.upload(fileUri, {
-            folder: 'digital-akhuwat-selfies',
+            folder: folder,
         });
         return result.secure_url;
     } catch (error) {

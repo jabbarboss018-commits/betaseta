@@ -18,7 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { addLoanApplication } from "@/lib/firebase";
-import { uploadSelfie } from "@/lib/cloudinary";
+import { uploadImage } from "@/lib/cloudinary";
 
 const formSchema = z.object({
   selfie: z.any().refine(files => files?.length === 1, "Selfie is required."),
@@ -91,7 +91,7 @@ export function LoanApplicationForm() {
     try {
       const selfieFile = values.selfie[0];
       const selfieDataUri = await fileToDataUri(selfieFile);
-      const selfieUrl = await uploadSelfie(selfieDataUri);
+      const selfieUrl = await uploadImage(selfieDataUri, 'digital-akhuwat-selfies');
 
       await addLoanApplication({
         fullName: values.fullName,
